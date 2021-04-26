@@ -7,6 +7,11 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import LoginScreen from './src/pages/Login';
 import HomeScreen from './src/pages/Home';
+import MapUser from './src/pages/MapUser';
+import Route_to_Site from './src/pages/Route';
+import dev from './src/pages/dev_map';
+import Menu_Admin_Index from './src/pages/Menu_Admin_Index';
+import Register_Parq from './src/pages/Register_Parq';
 
 // export default function App() {
 //   return (
@@ -36,6 +41,18 @@ const AppNavigator = createStackNavigator({
   },
   Login: {
     screen: LoginScreen
+  },
+  Mapa_Parqs: {
+    screen: MapUser
+  },
+  Ruta_al_Parq: {
+    screen: Route_to_Site
+  },
+  Menu_Admin:{
+    screen: Menu_Admin_Index
+  },
+  Registrar_Parq: {
+    screen: Register_Parq
   }
 
 });

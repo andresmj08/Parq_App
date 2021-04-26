@@ -7,9 +7,13 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import { Icon } from 'react-native-elements';
+
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import Menu_Admin_Index from '../pages/Menu_Admin_Index';
 
 export default class FormLoginScreen extends Component <{}>{
+  
       render(){
         return(
           <View style={styles.container}>
@@ -25,16 +29,19 @@ export default class FormLoginScreen extends Component <{}>{
                 placeholderTextColor= '#212121'
                 secureTextEntry={true}/>
 
-                <TouchableOpacity style={styles.button}>
-                  <Text style={styles.textButton}> Iniciar Sesión </Text>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Menu_Admin')}>
+                  <Text style={styles.textButton} > Iniciar Sesión </Text>
                 </TouchableOpacity>
           </View>
 
         )
       }
-
+        
 
 }
+
+
+
 
 
 const styles = StyleSheet.create({
