@@ -6,6 +6,7 @@ Pasos para Clonar el Repositorio:
     git init
 4. Posterior a ello clonar el repositorio, Ejecutar:
     git clone https://github.com/andresmj08/Parq_App.git
+    **Posiblemente solicite credenciales de Acceso a git (Usuario y Contraseña)
 5. Una vez completado el clon, se debio crear la carpeta Parq_App
 6. Acceder a la carpeta Parq_App
     cd Parq_app
