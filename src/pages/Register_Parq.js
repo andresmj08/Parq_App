@@ -28,7 +28,7 @@ Registrar_Parq = () => {
     const { longitud_map } = this.state;
 
 
-  fetch('http://192.168.2.1/Parq_App_Conection/register_parq.php', {
+  fetch('http://34.217.178.10/Conexion_Parq_app/register_parq.php', {
     method: 'POST',
     headers:{
         'Accept':'application/json',

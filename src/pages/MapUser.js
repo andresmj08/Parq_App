@@ -30,7 +30,7 @@ export default class Mapa_Parqs extends Component <{}> {
     Sitios_Mapa = () => {
       
       // fetch('http://34.217.178.10/sitios.php', {
-      fetch('http://192.168.2.1/Parq_App_Conection/sitios.php', {
+      fetch('http://34.217.178.10/Conexion_Parq_app/sitios.php', {
         method:'POST',
         header:{
           'Accept':'application/json',

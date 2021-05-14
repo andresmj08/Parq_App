@@ -22,7 +22,7 @@ export default class LoginScreen extends Component <{}>{
     const {email} = this.state;
     const {pass} = this.state;
 
-    fetch('http://192.168.2.1/Parq_App_Conection/login.php', {
+    fetch('http://34.217.178.10/Conexion_Parq_app/login.php', {
       method: 'POST',
       headers:{
         'Accept':'application/json',
