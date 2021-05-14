@@ -1,17 +1,54 @@
 import React, {Component} from 'react';
 import { StyleSheet,View,Text,TouchableOpacity, TextInput } from 'react-native';
-import MapView, {Marker, ProviderProptype} from 'react-native-maps';
-
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { Icon } from 'react-native-elements';
+import { AsyncStorage } from 'react-native';
 
 import Logo from '../components/Logo';
-import FormLoginScreen from '../components/Form';
-import HomeScreen from './Home';
+
 
 
 export default class LoginScreen extends Component <{}>{
     
+  constructor(props){
+    super(props);
+    this.state = {
+      isReady : false,
+      email : '',
+      pass: ''
+    };
+  }
+
+  Login = () => {
+    const {email} = this.state;
+    const {pass} = this.state;
+
+    fetch('http://192.168.2.1/Parq_App_Conection/login.php', {
+      method: 'POST',
+      headers:{
+        'Accept':'application/json',
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({
+        email:email,
+        pass:pass
+      })
+    }).then((respuesta)=> respuesta.json())
+    .then((respuestaJson) => {
+      if(respuestaJson == "Correcto"){
+        alert("Bienvenido Admin");
+        this.props.navigation.navigate('Menu_Admin');
+      }
+      else{
+        alert("Verifica tus datos");
+      }
+           
+    }).catch((error) => {
+        console.error(error);
+    })
+
+  }
+
+
       render(){
         return(
           <View style= {styles.container}>
@@ -22,6 +59,7 @@ export default class LoginScreen extends Component <{}>{
                   underlineColorAndroid='rgba(0,0,0,0)'
                   placeholder= 'Usuario'
                   placeholderTextColor= '#212121'
+                  onChangeText = {email => this.setState({email})}
                 />
               
                <TextInput
@@ -30,13 +68,14 @@ export default class LoginScreen extends Component <{}>{
                   placeholder= 'Contraseña'
                   placeholderTextColor= '#212121'
                   secureTextEntry={true}
+                  onChangeText = {pass => this.setState({pass})}
                   />
 
-                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Menu_Admin')}>
+                <TouchableOpacity style={styles.button} onPress={this.Login}>
                   <Text style={styles.textButton} > Iniciar Sesión </Text>
                 </TouchableOpacity>
-
-              
+                <Text style={styles.letter}> ___________________________________________</Text>
+                <Text style = {styles.textRegister} > ¿Aún no te has registrado? Toca aquí <Icon name='user'  type='evilicon'  color='#b6ad05' onPress={() => this.props.navigation.navigate('Registrar_Admin_Parq')}/></Text>
               <Text></Text>
           </View>
         )
@@ -100,5 +139,10 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     marginVertical: 10,
 
+  },
+  textRegister: {
+    fontSize: 18,
+    color:'#212121',
+    textAlign: 'center',
   },
   });

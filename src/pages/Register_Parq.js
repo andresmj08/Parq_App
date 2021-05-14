@@ -1,11 +1,64 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput } from 'react-native';
 import { Icon } from 'react-native-elements';
-
-import Logo from '../components/Logo';
+import { createIconSetFromFontello } from 'react-native-vector-icons';
 
 export default class Register_Parq extends Component <{}>{
+
+  constructor(props){
+    super(props);
+    this.state = {
+        isReady:false,
+        matricula: '',
+        nombres: '',
+        nit: '',
+        direccion: '',
+        latitud_map: '',
+        longitud_map: '' 
+    };
+}
+
+Registrar_Parq = () => {
+    const { matricula} = this.state;
+    const { nombres } = this.state;
+    const { nit } = this.state;
+    const { direccion } = this.state;
+    const { latitud_map } = this.state;
+    const { longitud_map } = this.state;
+
+
+  fetch('http://192.168.2.1/Parq_App_Conection/register_parq.php', {
+    method: 'POST',
+    headers:{
+        'Accept':'application/json',
+        'Content-Type':'application/json'
+    },
+    body: JSON.stringify({
+        matricula:matricula,
+        nombres:nombres,
+        nit:nit,
+        direccion:direccion,
+        latitud_map:latitud_map,
+        longitud_map:longitud_map
+    })
+}).then((respuesta)=> respuesta.json())
+.then((respuestaJson) => {
+  if(respuestaJson == "Vacios"){
+        alert("Contiene Vacios");
+  }else  if(respuestaJson == "Registrado"){
+        alert("Parq Registrado con Exito!");
+        this.props.navigation.navigate('Menu_Admin');
+    }else{
+        alert("No pudo completarse!");
+    }
+  
+  
+}).catch((error) => {
+    console.error(error);
+})
+
+}
 
     
     render(){
@@ -19,6 +72,7 @@ export default class Register_Parq extends Component <{}>{
                   underlineColorAndroid='rgba(0,0,0,0)'
                   placeholder= 'Matricula'
                   placeholderTextColor= '#212121'
+                  onChangeText = {matricula => this.setState({matricula})}
                 />
                 
                 <TextInput
@@ -26,6 +80,7 @@ export default class Register_Parq extends Component <{}>{
                   underlineColorAndroid='rgba(0,0,0,0)'
                   placeholder= 'Nit'
                   placeholderTextColor= '#212121'
+                  onChangeText = {nit => this.setState({nit})}
                 />
 
                 <TextInput
@@ -33,23 +88,35 @@ export default class Register_Parq extends Component <{}>{
                   underlineColorAndroid='rgba(0,0,0,0)'
                   placeholder= 'Nombre Comercial'
                   placeholderTextColor= '#212121'
+                  onChangeText = {nombres => this.setState({nombres})}
                 />
 
                 <TextInput
                   style= {styles.input_box}
                   underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder= 'Telefono'
+                  placeholder= 'Direccion'
                   placeholderTextColor= '#212121'
+                  onChangeText = {direccion => this.setState({direccion})}
                 />
+                
                  <TextInput
                   style= {styles.input_box}
                   underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder= 'Direccion'
+                  placeholder= 'Latitud_Mapa'
                   placeholderTextColor= '#212121'
+                  onChangeText = {latitud_map => this.setState({latitud_map})}
+                />
+                
+                <TextInput
+                  style= {styles.input_box}
+                  underlineColorAndroid='rgba(0,0,0,0)'
+                  placeholder= 'Longitud_Mapa'
+                  placeholderTextColor= '#212121'
+                  onChangeText = {longitud_map => this.setState({longitud_map})}
                 />
 
 
-               <TouchableOpacity style={styles.button} >
+               <TouchableOpacity style={styles.button} onPress={this.Registrar_Parq} >
                   <Text style={styles.textButton}  > Registrar Parq! </Text>
                 </TouchableOpacity>
 

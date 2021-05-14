@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -6,11 +6,14 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import LoginScreen from './src/pages/Login';
+import Register_AdminParq from './src/pages/Register_AdminParq';
+import Menu_Admin_Index from './src/pages/Menu_Admin_Index';
+
 import HomeScreen from './src/pages/Home';
 import MapUser from './src/pages/MapUser';
 import Route_to_Site from './src/pages/Route';
 import dev from './src/pages/dev_map';
-import Menu_Admin_Index from './src/pages/Menu_Admin_Index';
+
 import Register_Parq from './src/pages/Register_Parq';
 
 // export default function App() {
@@ -53,6 +56,9 @@ const AppNavigator = createStackNavigator({
   },
   Registrar_Parq: {
     screen: Register_Parq
+  },
+  Registrar_Admin_Parq: {
+    screen: Register_AdminParq
   }
 
 });

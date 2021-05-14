@@ -29,17 +29,14 @@ export default class Mapa_Parqs extends Component <{}> {
     }
     Sitios_Mapa = () => {
       
-      fetch('http://34.217.178.10/sitios.php', {
+      // fetch('http://34.217.178.10/sitios.php', {
+      fetch('http://192.168.2.1/Parq_App_Conection/sitios.php', {
         method:'POST',
         header:{
           'Accept':'application/json',
           'Content-Type':'application/json'
         }
-        // ,
-        // body: JSON.stringify({
-        //   "Id_Route" : "64",
-        //   "Id_Partner" : "999"
-        // })
+        
       }).then((respuesta) => respuesta.json())
       .then((rtaJson) => {
           this.setState({markers:rtaJson})

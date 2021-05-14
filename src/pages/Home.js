@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -11,7 +11,7 @@ export default class HomeScreen extends Component <{}>{
     render(){
       return(
         <View style= {styles.container}>
-              <Text ><Icon name='user'  type='evilicon'  color='#b6ad05' onPress={() => this.props.navigation.navigate('Login')}/> ¿Eres Administrador? </Text>
+              <Text ><Icon name='user'  type='evilicon'  color='#b6ad05' onPress={() => this.props.navigation.navigate('Login')}/> ¿Eres Administrador de un Parq? </Text>
               
               <Logo/>
 
