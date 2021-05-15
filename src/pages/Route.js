@@ -1,6 +1,6 @@
 
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, Dimensions, ScrollView } from 'react-native';
+import React, {Component, useState} from 'react';
+import { TouchableOpacity,StyleSheet, Text, View, Dimensions, Modal, Alert } from 'react-native';
 import MapView, {Marker, ProviderProptype} from 'react-native-maps';
 import MapViewDirections, {} from 'react-native-maps-directions';
 import { Icon } from 'react-native-elements';
@@ -65,6 +65,7 @@ render() {
         },
         ];
 
+        
     return(
         
         <MapView
@@ -105,13 +106,15 @@ render() {
             />
         )}
        
-       <View style = {styles.div_info}>
-       <Text>  la Distancia hasta {Parqueadero} es de {this.state.distancia} Km </Text>
-            <Text> Estas a {this.state.duracion} Minutos </Text>
-            
+            <View style = {styles.div_info}>
+                <Text>  la Distancia hasta {Parqueadero} es de {this.state.distancia} Km </Text>
+                <Text> Estas a {this.state.duracion} Minutos </Text>
+                
+                
 
-        </View>
-          </MapView>
+            </View>
+        
+        </MapView>
 
     );
   }

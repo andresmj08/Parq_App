@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet,View,Text,TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet,View,Text,TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { AsyncStorage } from 'react-native';
 
@@ -39,7 +39,7 @@ export default class LoginScreen extends Component <{}>{
         this.props.navigation.navigate('Menu_Admin');
       }
       else{
-        alert("Verifica tus datos");
+        Alert.alert("Verifica tus datos");
       }
            
     }).catch((error) => {

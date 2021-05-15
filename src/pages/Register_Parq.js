@@ -1,8 +1,7 @@
 
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { createIconSetFromFontello } from 'react-native-vector-icons';
 
 export default class Register_Parq extends Component <{}>{
 
@@ -45,12 +44,12 @@ Registrar_Parq = () => {
 }).then((respuesta)=> respuesta.json())
 .then((respuestaJson) => {
   if(respuestaJson == "Vacios"){
-        alert("Contiene Vacios");
+        Alert.alert("Debes completar todos los campos");
   }else  if(respuestaJson == "Registrado"){
-        alert("Parq Registrado con Exito!");
+        Alert.alert("Parq Registrado con Exito!");
         this.props.navigation.navigate('Menu_Admin');
     }else{
-        alert("No pudo completarse!");
+        Alert.alert("No pudo completarse!");
     }
   
   

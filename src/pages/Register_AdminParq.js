@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import Logo from '../components/Logo';
@@ -44,11 +44,13 @@ export default class Register_AdminParq extends Component <{}>{
         })
     }).then((respuesta)=> respuesta.json())
     .then((respuestaJson) => {
-        if(respuestaJson == "Registrado"){
-            alert("Usuario Registrado con Exito! Por favor inicie Sesion");
+      if(respuestaJson == "Vacios"){
+        Alert.alert("Debes completar todos los campos");
+      }else if(respuestaJson == "Registrado"){
+            Alert.alert("Usuario Registrado con Exito! Por favor inicie Sesion");
             this.props.navigation.navigate('Login');
         }else{
-            alert("No pudo completarse!");
+            Alert.alert("No pudo completarse!");
         }
       
       
