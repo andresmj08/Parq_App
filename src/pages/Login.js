@@ -34,9 +34,12 @@ export default class LoginScreen extends Component <{}>{
       })
     }).then((respuesta)=> respuesta.json())
     .then((respuestaJson) => {
-      if(respuestaJson == "Correcto"){
-        alert("Bienvenido Admin");
-        this.props.navigation.navigate('Menu_Admin');
+      if(respuestaJson == "Vacios"){
+        Alert.alert("Debes completar todos los campos");
+      }else 
+        if(respuestaJson == "Correcto"){
+          Alert.alert("Bienvenido Admin");
+          this.props.navigation.navigate('Menu_Admin');
       }
       else{
         Alert.alert("Verifica tus datos");
