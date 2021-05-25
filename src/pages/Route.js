@@ -4,6 +4,7 @@ import { TouchableOpacity,StyleSheet, Text, View, Dimensions, Modal, Alert } fro
 import MapView, {Marker, ProviderProptype} from 'react-native-maps';
 import MapViewDirections, {} from 'react-native-maps-directions';
 import { Icon } from 'react-native-elements';
+import Info_Parq_Route from './Info_Parq_Route';
 
 const { width, height } = Dimensions.get('window');
 
@@ -50,6 +51,7 @@ render() {
         const latitudeDestino = params ? params.latitudeDestino : null;
         const longitudeDestino = params ? params.longitudeDestino : null;
         const Parqueadero = params ? params.Parqueadero : null;
+        const Id_Parq = params ? params.Id_Parq : null;
 
         const origin = {latitude: 4.801609, longitude: -75.705830 };
         const destination = { latitude: parseFloat(latitudeDestino), longitude: parseFloat(longitudeDestino)};
@@ -67,54 +69,52 @@ render() {
 
         
     return(
-        
-        <MapView
-            style = { styles.map_style}
-          initialRegion = {{
-                latitude: LATITUDE,
-                longitude: LONGITUDE,
-                latitudeDelta: LATITUDE_DELTA,
-                longitudeDelta: LONGITUDE_DELTA,
-          }}
-          style = {StyleSheet.absoluteFill}
-          ref = {c => this.OnMapPress}
-          
-          
-          >
-        
-        {coordinates.map((coordinate, index) => 
-            <MapView.Marker 
-                key = {`coordinate_${index}`} 
-                coordinate = {coordinate}
-                title = { Parqueadero }
-                image = {require('../components/imagenes/Marker_Map.png')}
-                 />
+        <View style={StyleSheet.absoluteFillObject}>
+            <MapView
+                style = { styles.map_style}
+            initialRegion = {{
+                    latitude: LATITUDE,
+                    longitude: LONGITUDE,
+                    latitudeDelta: LATITUDE_DELTA,
+                    longitudeDelta: LONGITUDE_DELTA,
+            }}
+            style = {StyleSheet.absoluteFill}
+            ref = {c => this.OnMapPress}
             
-        )}
-
-        {(coordinates.length >= 2 ) && (
-            <MapViewDirections
-                origin = {origin}
-                destination = {destination}
-                apikey = {GOOGLE_MAPS_APIKEY}
-                strokeWidth = {3}
-                strokeColor = "#BB9B15"
-                onReady = { result => {
-                    this.setState({ distancia: result.distance})
-                    this.setState({ duracion: result.duration})
-                }}
-            />
-        )}
-       
-            <View style = {styles.div_info}>
-                <Text>  la Distancia hasta {Parqueadero} es de {this.state.distancia} Km </Text>
-                <Text> Estas a {this.state.duracion} Minutos </Text>
+            
+            >
+            
+            {coordinates.map((coordinate, index) => 
+                <MapView.Marker 
+                    key = {`coordinate_${index}`} 
+                    coordinate = {coordinate}
+                    title = { Parqueadero }
+                    image = {require('../components/imagenes/Marker_Map.png')}
+                    />
                 
-                
+            )}
 
-            </View>
+            {(coordinates.length >= 2 ) && (
+                <MapViewDirections
+                    origin = {origin}
+                    destination = {destination}
+                    apikey = {GOOGLE_MAPS_APIKEY}
+                    strokeWidth = {3}
+                    strokeColor = "#BB9B15"
+                    onReady = { result => {
+                        this.setState({ distancia: result.distance.toFixed(2)})
+                        this.setState({ duracion: result.duration.toFixed(2)})
+                    }}
+                />
+            )}
         
-        </MapView>
+            
+            </MapView>
+                
+                
+                <Info_Parq_Route Parqueadero={Parqueadero} distancia={this.state.distancia} tiempo={this.state.duracion} Id_Parq={Id_Parq}/>
+         
+        </View>
 
     );
   }

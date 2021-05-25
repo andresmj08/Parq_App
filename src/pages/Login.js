@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet,View,Text,TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { AsyncStorage } from 'react-native';
 
 import Logo from '../components/Logo';
 

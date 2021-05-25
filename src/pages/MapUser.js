@@ -78,7 +78,8 @@ render() {
                 onPress={() => this.props.navigation.navigate('Ruta_al_Parq',{
                   latitudeDestino: parseFloat(marker.latitud_map),
                   longitudeDestino: parseFloat(marker.longitud_map),
-                  Parqueadero: (marker.nombre)
+                  Parqueadero: (marker.nombre),
+                  Id_Parq:(marker.id)
                 })
                 }
                 image = {require('../components/imagenes/Marker_Map.png')}
