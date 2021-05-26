@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -12,19 +12,8 @@ import Menu_Admin_Index from './src/pages/Menu_Admin_Index';
 import HomeScreen from './src/pages/Home';
 import MapUser from './src/pages/MapUser';
 import Route_to_Site from './src/pages/Route';
-import dev from './src/pages/dev_map';
-
 import Register_Parq from './src/pages/Register_Parq';
-
-// export default function App() {
-//   return (
-//       <View style= {styles.container}>
-//           <StatusBar barStyle= 'light-content'  backgroundColor= '#ffd600'/>
-//           <HomeScreen/>
-
-//       </View>
-//   )
-// }
+import slide_marker from './src/pages/slide_marker';
 
 
 class Home extends React.Component{
@@ -59,33 +48,12 @@ const AppNavigator = createStackNavigator({
   },
   Registrar_Admin_Parq: {
     screen: Register_AdminParq
+  },
+  Marker: {
+    screen: slide_marker
   }
 
 });
 
-// const styles = StyleSheet.create({
-//   letra: {
-//     color: '#ffffff',
-//     fontSize: 18,
-//   },
-//   container: {
-//     backgroundColor : '#616161',
-//     flex : 1,
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-
-//   registrer_content:{
-//     flexGrow: 1,
-//     alignItems: 'center',
-//     justifyContent: 'flex-end',
-
-//   },
-
-//   registrer_text:{
-//     color: '#ffffff',
-//     fontSize: 18,
-//   },
-//   });
 
 export default createAppContainer(AppNavigator);

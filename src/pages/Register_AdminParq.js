@@ -47,7 +47,7 @@ export default class Register_AdminParq extends Component <{}>{
       if(respuestaJson == "Vacios"){
         Alert.alert("Debes completar todos los campos");
       }else if(respuestaJson == "Registrado"){
-            Alert.alert("Usuario Registrado con Exito! Por favor inicie Sesion");
+            Alert.alert("Usuario Registrado con Éxito! Por favor iniciar Sesión");
             this.props.navigation.navigate('Login');
         }else{
             Alert.alert("No pudo completarse!");

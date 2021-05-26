@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
+import slide_marker from './slide_marker';
 
 export default class Register_Parq extends Component <{}>{
 
@@ -114,6 +115,9 @@ Registrar_Parq = () => {
                   onChangeText = {longitud_map => this.setState({longitud_map})}
                 />
 
+                <TouchableOpacity style={styles.button} onPress={<slide_marker/>} >
+                  <Text style={styles.textButton}  > mapa </Text>
+                </TouchableOpacity>
 
                <TouchableOpacity style={styles.button} onPress={this.Registrar_Parq} >
                   <Text style={styles.textButton}  > Registrar Parq! </Text>

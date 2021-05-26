@@ -12,14 +12,14 @@ export default class HomeScreen extends Component <{}>{
         <View style= {styles.container}>
               <Text ><Icon name='user'  type='evilicon'  color='#b6ad05' onPress={() => this.props.navigation.navigate('Login')}/> ¿Eres Administrador de un Parq? </Text>
               
-              <Logo/>
+              <Logo/> 
 
               <Text style={styles.letter}>Bienvenido a Parq Pereira!{"\n"}  ____________________________________</Text>
               <Text style={styles.perfil}> Te ayudamos a encontrar {"\n"} la mejor opción de Parqueo {"\n"} en Pereira! </Text>
 
-              <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Mapa_Parqs')}>
+              <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Marker')}>
                   <Text style={styles.textButton} > Buscar Parqs! </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> 
           </View>
     
       );
