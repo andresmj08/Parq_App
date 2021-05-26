@@ -20,7 +20,7 @@ export default class Menu_Admin_Index extends Component <{}>{
                   <Text style={styles.textButton} > <Icon name='pencil'  type='evilicon'  color='#616161' />  Editar Mis Parqueaderos! </Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Mapa_Parqs')}>
-                  <Text style={styles.textButton} > <Icon name='chart'  type='evilicon'  color='#616161' /> Consultar Estadisticas </Text>
+                  <Text style={styles.textButton} > <Icon name='chart'  type='evilicon'  color='#616161' /> Consultar Estadísticas </Text>
                 </TouchableOpacity>
           </View>
     

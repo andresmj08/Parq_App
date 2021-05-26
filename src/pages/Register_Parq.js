@@ -93,7 +93,7 @@ Registrar_Parq = () => {
                 <TextInput
                   style= {styles.input_box}
                   underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder= 'Direccion'
+                  placeholder= 'Dirección'
                   placeholderTextColor= '#212121'
                   onChangeText = {direccion => this.setState({direccion})}
                 />
