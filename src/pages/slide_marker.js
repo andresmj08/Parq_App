@@ -1,81 +1,105 @@
 
-import React, {Component} from 'react';
+import React, {Component,  useState, useEffect}  from 'react';
 import { StyleSheet, Text, View, Dimensions } from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
-import { Current_Location_Function } from '../components/Current_Location_User';
+import * as Location from 'expo-location';
 
 
 
 const { width, height } = Dimensions.get('window');
 
+
+
 const ASPECT_RATIO = width / height;
-const LATITUDE = 4.8152024;
-const LONGITUDE = -75.7041791;
-const LATITUDE_DELTA = 0.0922;
+const LATITUDE_DELTA = 0.0012;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 
- export default class slide_marker extends Component <{}> {
+
+export default function MarkerMap(){
+
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  const [Marker_Position, setMarker_Position] = useState ({latitude : 1, longitude : 1});
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+  let ubicacion = false;
+  let current_latitud = '';
+  let current_longitud = '';
+
+  if (errorMsg) {
+    ubicacion = false;
+  } else if (location) {
+     ubicacion = true;
+     current_latitud = JSON.stringify(location.coords);
+     current_longitud = JSON.stringify(location.coords.longitude);
+     
+  }
+
+  
+  const onMapPress = (e) => {
+    // alert(e.nativeEvent.coordinate.latitude);
+    setMarker_Position(e.nativeEvent.coordinate);
+    
+  };
 
 
-
-    constructor(props) {
-        super(props);
-      
-         this.state = {
-          region: {
-           latitude: LATITUDE,
-           longitude: LONGITUDE,
-           latitudeDelta: LATITUDE_DELTA,
-           longitudeDelta: LONGITUDE_DELTA,
-          },
-          marker: {
-            coordinate: {
-              latitude: 0,
-              longitude: 0,
-              }
-          }
-         };
-        }
-
-    onMapPress(e) {
-        this.setState({
-            marker: 
-            {
-                coordinate: e.nativeEvent.coordinate,
-            },
-        });
-     }
-
-     nueva(uno){
-        return uno * 2;
-     }
-
- render() {
-   return (
-      <View style={styles.container}>
-             <MapView
-                provider={this.props.provider}
+  return(
+    <View style={styles.container}>
+        
+          
+        {
+          ubicacion ? 
+            <MapView
                 style={styles.map}
-                initialRegion={this.state.region}
-                onPress={e => this.onMapPress(e)}
+                showsUserLocation
+                onPress= {e => onMapPress(e)}
+                initialRegion={{
+                  latitude: location.coords.latitude,
+                  longitude: location.coords.longitude,
+                  latitudeDelta: LATITUDE_DELTA,
+                  longitudeDelta: LONGITUDE_DELTA,
+                                   
+                }}
                >
-      
-                    <Marker
-                    coordinate={this.state.marker.coordinate}
+                 <Marker
+                    coordinate= {{
+                      latitude: Marker_Position.latitude,
+                      longitude: Marker_Position.longitude
+                    }}
                     image = {require('../components/imagenes/Marker_Map.png')}
-                    >
-                    </Marker>
-      
-             </MapView>
+                    
+                    draggable
+                 >
+                   </Marker>
+
+        </MapView>
+          :
+          <Text>Obteniendo Ubicacion Real</Text>
+        }
              
-            <Text>{this.state.marker.coordinate.latitude}</Text>
-            
-        </View>
-      );
-    }
- 
-}  
+    </View>
+  )
+
+}
+
+
+
+
+  
 
 
 

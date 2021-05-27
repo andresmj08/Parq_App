@@ -13,7 +13,7 @@ import HomeScreen from './src/pages/Home';
 import MapUser from './src/pages/MapUser';
 import Route_to_Site from './src/pages/Route';
 import Register_Parq from './src/pages/Register_Parq';
-import slide_marker from './src/pages/slide_marker';
+import MarkerMap from './src/pages/slide_marker';
 
 
 class Home extends React.Component{
@@ -50,7 +50,7 @@ const AppNavigator = createStackNavigator({
     screen: Register_AdminParq
   },
   Marker: {
-    screen: slide_marker
+    screen: MarkerMap
   }
 
 });

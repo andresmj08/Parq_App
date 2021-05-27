@@ -2,7 +2,7 @@ import  { useState, useEffect} from 'react';
 import * as Location from 'expo-location';
 
 
-export default function Current_Location_Function(){
+export default function current_location_function(){
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -37,5 +37,5 @@ export default function Current_Location_Function(){
 
   }
 
-  return "bien";
+  return location;
 }

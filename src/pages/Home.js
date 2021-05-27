@@ -17,7 +17,7 @@ export default class HomeScreen extends Component <{}>{
               <Text style={styles.letter}>Bienvenido a Parq Pereira!{"\n"}  ____________________________________</Text>
               <Text style={styles.perfil}> Te ayudamos a encontrar {"\n"} la mejor opción de Parqueo {"\n"} en Pereira! </Text>
 
-              <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Marker')}>
+              <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Mapa_Parqs')}>
                   <Text style={styles.textButton} > Buscar Parqs! </Text>
                 </TouchableOpacity> 
           </View>
