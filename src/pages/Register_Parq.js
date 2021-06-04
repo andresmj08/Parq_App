@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, Dimensions, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
 import MapView, {Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -22,7 +22,9 @@ export default function Register_Parq(){
           nit: '',
           direccion: '',
           latitud_map: '',
-          longitud_map: ''
+          longitud_map: '',
+          valor_carro: 0,
+          valor_moto: 0
   })
 
 
@@ -30,7 +32,7 @@ export default function Register_Parq(){
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const [Marker_Position, setMarker_Position] = useState ({latitude : 1, longitude : 1});
+  const [Marker_Position, setMarker_Position] = useState ({latitude : 4.813785, longitude :  -75.694961});
 
   useEffect(() => {
     (async () => {
@@ -78,8 +80,10 @@ const Registrar_Parq = () => {
     const { direccion } = Datos_Parq;
     const { latitud_map } = Datos_Parq;
     const { longitud_map } = Datos_Parq;
+    const { valor_carro } = Datos_Parq;
+    const { valor_moto } = Datos_Parq;
   
-  // alert( matricula + ' ' + nombres + ' ' + nit + ' ' + direccion + ' ' + latitud_map + ' ' + longitud_map);
+ // alert( matricula + ' ' + nombres + ' ' + nit + ' ' + direccion + ' ' + latitud_map + ' ' + longitud_map + ' carro '+ valor_carro + ' moto '+valor_moto);
 
   fetch('http://34.217.178.10/Conexion_Parq_app/register_parq.php', {
     method: 'POST',
@@ -88,12 +92,14 @@ const Registrar_Parq = () => {
         'Content-Type':'application/json'
     },
     body: JSON.stringify({
-        matricula:matricula,
+        //matricula:matricula,
         nombres:nombres,
         nit:nit,
         direccion:direccion,
         latitud_map:latitud_map,
-        longitud_map:longitud_map
+        longitud_map:longitud_map,
+        valor_carro:valor_carro,
+        valor_moto: valor_moto
     })
 }).then((respuesta)=> respuesta.json())
 .then((respuestaJson) => {
@@ -101,7 +107,7 @@ const Registrar_Parq = () => {
         Alert.alert("Debes completar todos los campos");
   }else  if(respuestaJson == "Registrado"){
         Alert.alert("Parq Registrado con Exito!");
-        this.props.navigation.navigate('Menu_Admin');
+        
     }else{
         Alert.alert("No pudo completarse!");
     }
@@ -154,7 +160,40 @@ const Registrar_Parq = () => {
                   onChangeText = {direccion => setDatos_Parq({... Datos_Parq, direccion : direccion})}
                 />
                 
-              
+                <View style={styles.row}>
+                  <View style={[styles.fraccion]}>
+                    <Image source={require("../components/imagenes/Carro.png")} style={{ width: '50%', height: '50%', resizeMode: 'contain' }} />
+                  </View>
+
+                  <View style={[styles.fraccion]}>
+                    <Image source={require("../components/imagenes/Moto.png")} style={{ width: '50%', height: '50%', resizeMode: 'contain' }} />
+                  </View>
+               </View>
+
+          
+              <View style={styles.row}>
+                <View style={[styles.fraccion,  styles.valor_box]}>
+                  <TextInput
+                    style= {styles.input_box_value}
+                    underlineColorAndroid='rgba(0,0,0,0)'
+                    placeholder= 'Valor_Hora'
+                    placeholderTextColor= '#212121'
+                    keyboardType = 'numeric'
+                    onChangeText = {valor_carro => setDatos_Parq({... Datos_Parq,valor_carro : valor_carro})}
+                  />
+                </View>
+                <View style={[styles.fraccion,  styles.valor_box]}>
+                  <TextInput
+                      style= {styles.input_box_value}
+                      underlineColorAndroid='rgba(0,0,0,0)'
+                      placeholder= 'Valor_Hora'
+                      placeholderTextColor= '#212121'
+                      keyboardType = 'numeric'
+                      onChangeText = {valor_moto => setDatos_Parq({... Datos_Parq,valor_moto : valor_moto})}
+                  />
+                </View>
+              </View>
+                  
               
 
             </View>
@@ -188,11 +227,14 @@ const Registrar_Parq = () => {
 
                 </MapView>
                   :
-                  <Text>Obteniendo Ubicacion Real</Text>
+                  <Text style={styles.spinner_text}><Icon name='spinner' size={30} type='evilicon'  color='#b6ad05'/>Obteniendo Ubicación Real</Text>
                 }
             </View>
 
             <View style= {styles.div_button}>
+              <Text>Latitud: {Marker_Position.latitude}</Text>
+              <Text>Latitud: {Datos_Parq.latitud_map}</Text>
+              <Text>Longitud: {Marker_Position.longitude} </Text>
                 <TouchableOpacity style={styles.button} onPress={() => Registrar_Parq()} >
                   <Text style={styles.textButton}  > Registrar Parq! </Text>
                 </TouchableOpacity>
@@ -245,9 +287,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         fontSize: 18,
         color: '#212121',
-        marginVertical: 10,
-        
-    
+        marginVertical: 10,    
+      },
+      input_box_value: {
+        width: 130,
+        backgroundColor:'#fff9c4',
+        borderRadius: 25,
+        paddingHorizontal: 16,
+        fontSize: 18,
+        color: '#212121',
+        marginVertical: 10, 
       },
       textButton: {
         fontSize: 20,
@@ -260,7 +309,7 @@ const styles = StyleSheet.create({
         
       },
       div_inputs: {
-        flex: 3,
+        flex: 5,
         
       },
       div_map: {
@@ -276,6 +325,23 @@ const styles = StyleSheet.create({
       map: {
         height : '100%',
         width: '100%'
-      }
+      },
+      spinner_text:{
+        fontSize: 20,
+        fontWeight: '100',
+        color:'#ffd600',
+        textAlign: 'center',
+
+      },
+      row: {
+        flex: 1,
+        flexDirection: 'row',
+        
+      },
+      fraccion: {
+        flex: 1,
+        height: 100,
+        alignItems: "center",
+      },
     });
   

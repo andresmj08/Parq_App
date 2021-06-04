@@ -34,7 +34,16 @@ const Info_Parq_Route = (props) => {
       }
     });
   
-  
+    fetch('http://34.217.178.10/Conexion_Parq_app/visite_record.php', {
+      method: 'POST',
+      headers:{
+          'Accept':'application/json',
+          'Content-Type':'application/json'
+      },
+      body: JSON.stringify({
+          id_parq:id_parqueadero
+      })
+  });
   
   
 
