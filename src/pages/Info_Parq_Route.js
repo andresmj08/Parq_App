@@ -91,7 +91,7 @@ const Info_Parq_Route = (props) => {
 
 
 
-          <Text style={styles.modalText}>{"\n"}<Icon name='calendar' size={30} type='evilicon'  color='#b6ad05'/>Horario de Atención de:{"\n"} <Text style={styles.bold_text}>{Datos_Parq.apertura}</Text> hasta: <Text style={styles.bold_text}>{Datos_Parq.cierre}</Text></Text>
+         <Text style={styles.modalText}>{"\n"}<Icon name='calendar' size={30} type='evilicon'  color='#b6ad05'/>Horario de Atención de:{"\n"} <Text style={styles.bold_text}>{Datos_Parq.apertura}</Text> hasta: <Text style={styles.bold_text}>{Datos_Parq.cierre}</Text></Text>
            {register_parq 
               ? <Text style={styles.register_ok}> <Icon name='check' size={30} type='evilicon'  color='green'/>Registrado en Cámara de Comercio{"\n"}</Text>
               : <Text style={styles.no_register}> <Icon name='exclamation' size={30} type='evilicon'  color='red'/> Sin registro en Cámara de Comercio{"\n"}</Text>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 400,
+    marginTop: 200,
     
     
   },
@@ -139,7 +139,8 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 20,
+    
   },
   button: {
     borderRadius: 20,
@@ -175,6 +176,8 @@ const styles = StyleSheet.create({
   row: {
     flex: 1,
     flexDirection: 'row',
+    margin: '6%'
+    
     
   },
   fraccion: {
@@ -184,7 +187,7 @@ const styles = StyleSheet.create({
   },
   
   valor_box: {
-    height: 30
+    height: 50
   },
   unique_box: {
     flex:2,

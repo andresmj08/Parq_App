@@ -14,6 +14,7 @@ import MapUser from './src/pages/MapUser';
 import Route_to_Site from './src/pages/Route';
 import Register_Parq from './src/pages/Register_Parq';
 import MarkerMap from './src/pages/slide_marker';
+import PolygonCreator from './src/pages/polygon_map';
 
 
 class Home extends React.Component{
@@ -51,6 +52,9 @@ const AppNavigator = createStackNavigator({
   },
   Marker: {
     screen: MarkerMap
+  },
+  Poligono: {
+    screen: PolygonCreator
   }
 
 });

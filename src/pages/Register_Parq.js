@@ -1,9 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, Dimensions, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, Dimensions, Image, Button } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { Icon } from 'react-native-elements';
 import MapView, {Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
+
+
+
 
 
 const { width, height } = Dimensions.get('window');
@@ -23,14 +27,20 @@ export default function Register_Parq(){
           direccion: '',
           latitud_map: '',
           longitud_map: '',
-          valor_carro: 0,
-          valor_moto: 0
+          valor_carro: '0',
+          valor_moto: '0'
   })
 
 
   
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+
+  const [hora_apertura, setHoraApertura] = useState(new Date('2021-06-06T12:30:00'));
+  const [hora_cierre, setHoraCierre] = useState(new Date('2021-06-06T23:30:00'));
+  
+  const [show_reloj_apertura, setShow_reloj_apertura] = useState(false);
+  const [show_reloj_cierre, setShow_reloj_cierre] = useState(false);
 
   const [Marker_Position, setMarker_Position] = useState ({latitude : 4.813785, longitude :  -75.694961});
 
@@ -72,6 +82,28 @@ export default function Register_Parq(){
   };
 
 
+  const reloj_apertura = (event, selectedDate) => {
+    const currentDate = selectedDate || hora_apertura;
+    showTimepicker_Apertura(Platform.OS === 'ios');
+    setHoraApertura(currentDate);
+  };
+
+  const reloj_cierre = (event, selectedDate) => {
+    const currentDate = selectedDate || hora_cierre;
+    showTimepicker_Cierre(Platform.OS === 'ios');
+    setHoraCierre(currentDate);
+  };
+
+ 
+  const showTimepicker_Apertura = () => {
+    setShow_reloj_apertura(true);
+  };
+  
+  
+  const showTimepicker_Cierre = () => {
+    setShow_reloj_cierre(true);
+  };
+
 
 const Registrar_Parq = () => {
     const { matricula} = Datos_Parq;
@@ -82,8 +114,11 @@ const Registrar_Parq = () => {
     const { longitud_map } = Datos_Parq;
     const { valor_carro } = Datos_Parq;
     const { valor_moto } = Datos_Parq;
-  
- // alert( matricula + ' ' + nombres + ' ' + nit + ' ' + direccion + ' ' + latitud_map + ' ' + longitud_map + ' carro '+ valor_carro + ' moto '+valor_moto);
+    const apertura  = hora_apertura.getHours()  + hora_apertura.getMinutes() ;
+    const cierre  = hora_cierre.getHours()  + hora_cierre.getMinutes() ;
+
+//alert( matricula + ' ' + nombres + ' ' + nit + ' ' + direccion + ' ' + latitud_map + ' ' + longitud_map + ' carro '+ valor_carro + ' moto '+ valor_moto + ' ' + apertura + ' ' + cierre );
+
 
   fetch('http://34.217.178.10/Conexion_Parq_app/register_parq.php', {
     method: 'POST',
@@ -92,14 +127,16 @@ const Registrar_Parq = () => {
         'Content-Type':'application/json'
     },
     body: JSON.stringify({
-        //matricula:matricula,
+        matricula:matricula,
         nombres:nombres,
         nit:nit,
         direccion:direccion,
         latitud_map:latitud_map,
         longitud_map:longitud_map,
         valor_carro:valor_carro,
-        valor_moto: valor_moto
+        valor_moto: valor_moto,
+        apertura: apertura,
+        cierre: cierre,
     })
 }).then((respuesta)=> respuesta.json())
 .then((respuestaJson) => {
@@ -108,13 +145,17 @@ const Registrar_Parq = () => {
   }else  if(respuestaJson == "Registrado"){
         Alert.alert("Parq Registrado con Exito!");
         
-    }else{
+    }else  if(respuestaJson == "ya_existe_registro"){
+      Alert.alert("Este Parqueadero ya se encuentra Registrado");
+      
+  }    
+    else{
         Alert.alert("No pudo completarse!");
     }
   
   
 }).catch((error) => {
-    console.error(error);
+    alert(error);
 })
 
 
@@ -128,6 +169,7 @@ const Registrar_Parq = () => {
             </View>
 
             <View style= {styles.div_inputs}>
+
             <TextInput
                   style= {styles.input_box}
                   underlineColorAndroid='rgba(0,0,0,0)'
@@ -144,6 +186,11 @@ const Registrar_Parq = () => {
                   onChangeText = {nit => setDatos_Parq({... Datos_Parq,nit : nit})}
                 />
 
+
+               
+               
+
+                 
                 <TextInput
                   style= {styles.input_box}
                   underlineColorAndroid='rgba(0,0,0,0)'
@@ -193,6 +240,42 @@ const Registrar_Parq = () => {
                   />
                 </View>
               </View>
+
+              <View style={styles.row}>
+                  <View style={[styles.fraccion]}>
+                  <Text style={styles.spinner_text}>  {hora_apertura.getHours()} : {hora_apertura.getMinutes()}   </Text>
+                        <Button onPress={showTimepicker_Apertura} title="Hora Apertura" />
+                
+                        {show_reloj_apertura && (
+                          <DateTimePicker
+                            value={hora_apertura}
+                            mode='time'
+                            is24Hour={false}
+                            display="default"
+                            minuteInterval={10}
+                            onChange={reloj_apertura}
+                          />
+                        )}
+
+                  </View>
+
+                  <View style={[styles.fraccion]}>
+                  <Text style={styles.spinner_text}> {hora_cierre.getHours()} : {hora_cierre.getMinutes()}   </Text>
+                  <Button onPress={showTimepicker_Cierre} title="Hora Cierre" />
+                          {show_reloj_cierre && (
+                            <DateTimePicker
+                              value={hora_cierre}
+                              mode='time'
+                              is24Hour={false}
+                              display="default"
+                              minuteInterval={10}
+                              onChange={reloj_cierre}
+                            />
+                          )}
+                          
+                  </View>
+                  
+               </View>
                   
               
 
@@ -231,10 +314,12 @@ const Registrar_Parq = () => {
                 }
             </View>
 
+
+
+            
+
             <View style= {styles.div_button}>
-              <Text>Latitud: {Marker_Position.latitude}</Text>
-              <Text>Latitud: {Datos_Parq.latitud_map}</Text>
-              <Text>Longitud: {Marker_Position.longitude} </Text>
+              
                 <TouchableOpacity style={styles.button} onPress={() => Registrar_Parq()} >
                   <Text style={styles.textButton}  > Registrar Parq! </Text>
                 </TouchableOpacity>
@@ -255,6 +340,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       padding: 10,
       flexDirection: "column",
+      height: '100%'
       
     },
 
@@ -310,11 +396,12 @@ const styles = StyleSheet.create({
       },
       div_inputs: {
         flex: 5,
+        justifyContent:'space-between'
         
       },
       div_map: {
-        flex: 3,
-        
+        flex: 2,
+        marginVertical: 10,
         width: '100%'
       },
       div_button: {
@@ -336,12 +423,17 @@ const styles = StyleSheet.create({
       row: {
         flex: 1,
         flexDirection: 'row',
+        marginVertical: 10,
+        
+        
         
       },
       fraccion: {
-        flex: 1,
+        flex: 2,
         height: 100,
         alignItems: "center",
+    
+        
       },
     });
   
