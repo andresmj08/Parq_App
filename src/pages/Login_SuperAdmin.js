@@ -6,7 +6,7 @@ import Logo from '../components/Logo';
 
 
 
-export default class LoginScreen extends Component <{}>{
+export default class Login_SuperAdmin extends Component <{}>{
     
   constructor(props){
     super(props);
@@ -54,13 +54,9 @@ export default class LoginScreen extends Component <{}>{
       render(){
         return(
           <View style= {styles.container}>
-              <Text ><Icon name='user'  type='evilicon'  color='#b6ad05' onPress={() => this.props.navigation.navigate('Login_SuperAdmin')}/> ¿Super Admin? </Text>
-              
               <Logo/>
-              
-
-
-              <Text style={styles.perfil}> Administrador de Sitio </Text>
+              <Text style={styles.perfil}> El duro de los Parqs  </Text>
+              <Text style={styles.perfil}> El SuperAdmin </Text>
               <TextInput 
                   style= {styles.input_box}
                   underlineColorAndroid='rgba(0,0,0,0)'
@@ -78,11 +74,12 @@ export default class LoginScreen extends Component <{}>{
                   onChangeText = {pass => this.setState({pass})}
                   />
 
-                <TouchableOpacity style={styles.button} onPress={this.Login}>
-                  <Text style={styles.textButton} > Iniciar Sesión </Text>
+                {/* <TouchableOpacity style={styles.button} onPress={this.Login}> */}
+                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Menu_SuperAdmin')}>
+                  <Text style={styles.textButton} > Pase Con Confianza </Text>
                 </TouchableOpacity>
                 <Text style={styles.letter}> ___________________________________________</Text>
-                <Text style = {styles.textRegister} > ¿Aún no te has registrado? Toca aquí <Icon name='user'  type='evilicon'  color='#b6ad05' onPress={() => this.props.navigation.navigate('Registrar_Admin_Parq')}/></Text>
+                
               <Text></Text>
           </View>
         )
@@ -139,7 +136,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    width: 150,
+    width: 200,
     backgroundColor:'#ffd600',
     borderRadius: 25,
     marginVertical: 10,

@@ -17,6 +17,9 @@ import MarkerMap from './src/pages/slide_marker';
 import PolygonCreator from './src/pages/polygon_map';
 import Filtrar_Parqs from './src/pages/Filtrar_Parqs';
 import Filtered_map from './src/pages/Filtered_map';
+import Login_SuperAdmin from './src/pages/Login_SuperAdmin';
+import Menu_SuperAdmin from './src/pages/Menu_SuperAdmin';
+import Estadisticas from './src/pages/Graficos_SuperAdmin';
 
 
 class Home extends React.Component{
@@ -63,6 +66,15 @@ const AppNavigator = createStackNavigator({
   },
   Map_Filtro: {
     screen: Filtered_map
+  },
+  Login_SuperAdmin: {
+    screen: Login_SuperAdmin
+  },
+  Menu_SuperAdmin: {
+    screen: Menu_SuperAdmin
+  },
+  Estadisticas_SA: {
+    screen: Estadisticas
   }
 
 });

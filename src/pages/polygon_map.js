@@ -1,11 +1,6 @@
+import { TextareaAutosize } from '@material-ui/core';
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity,Alert } from 'react-native';
 
 import MapView from 'react-native-maps';
 
@@ -17,6 +12,7 @@ const LONGITUDE = -75.7041791;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 let id = 0;
+
 
 class PolygonCreator extends React.Component {
   constructor(props) {
@@ -123,6 +119,29 @@ class PolygonCreator extends React.Component {
 
     return (
       <View style={styles.container}>
+        <View style= {styles.div_texto}>
+               
+            {
+                !this.state.editing ?
+
+                [ 
+                    !this.state.polygons.length ?
+                      <Text style= {styles.titulo_filtros}>Definir Perimetro Urbano {"\n"}
+                      <Text style = {styles.letra_filtros}>Para iniciar: <Text style = {styles.bold}>Click sobre el mapa </Text></Text></Text> 
+                  :
+                      <Text style= {styles.titulo_filtros}>Definir Perimetro Urbano {"\n"}                 
+                      <Text style = {styles.letra_filtros}> Perfecto!  <Text style = {styles.perimetro_definido}>El perimetro ha sido definido!</Text></Text></Text> 
+                      
+                ]
+                :
+                <Text style= {styles.titulo_filtros}>Definir Perimetro Urbano {"\n"}
+                <Text style = {styles.letra_filtros}>Seleccione los puntos extremos de la zona y por ultimo  <Text style = {styles.bold}>Click en "Terminar y Enviar" </Text></Text></Text>
+            }
+
+            
+        </View>
+        <Text>{this.state.polygons.length}</Text>
+        {/*<Text>{JSON.stringify(this.state.polygons)}</Text> */}
         <MapView
           provider={this.props.provider}
           style={styles.map}
@@ -136,9 +155,9 @@ class PolygonCreator extends React.Component {
               key={polygon.id}
               coordinates={polygon.coordinates}
               holes={polygon.holes}
-              strokeColor="#F00"
-              fillColor="rgba(255,0,0,0.5)"
-              strokeWidth={1}
+              strokeColor="#000000"
+              fillColor="rgba(0,163,49,0.5)"
+              strokeWidth={2}
             />
           ))}
           {this.state.editing && (
@@ -146,29 +165,47 @@ class PolygonCreator extends React.Component {
               key={this.state.editing.id}
               coordinates={this.state.editing.coordinates}
               holes={this.state.editing.holes}
-              strokeColor="#000"
-              fillColor="rgba(255,0,0,0.5)"
-              strokeWidth={1}
+              strokeColor="#000000"
+              fillColor="rgba(255,214,0,0.2)"
+              strokeWidth={2}
             />
           )}
         </MapView>
+
+     
         <View style={styles.buttonContainer}>
           {this.state.editing && (
-            <TouchableOpacity
-              onPress={() => this.createHole()}
-              style={[styles.bubble, styles.button]}
-            >
-              <Text>{this.state.creatingHole ? 'Finish Hole' : 'Create Hole'}</Text>
-            </TouchableOpacity>
+                  <TouchableOpacity
+                      onPress={() => this.finish()}
+                      style={[styles.bubble, styles.button]}
+                    >
+                      <Text>Terminar</Text>
+                    </TouchableOpacity>
+
           )}
-          {this.state.editing && (
-            <TouchableOpacity
-              onPress={() => this.finish()}
-              style={[styles.bubble, styles.button]}
-            >
-              <Text>Finish</Text>
-            </TouchableOpacity>
-          )}
+
+        
+          {!this.state.editing ?
+
+                [
+                  this.state.polygons.length ?
+
+                  <TouchableOpacity style={styles.boton_regresar_menu} onPress={() => this.props.navigation.navigate('Menu_SuperAdmin')}> 
+                      <Text style= {styles.text_btn_regresar}>Regresar al Menu Principal</Text>
+                  </TouchableOpacity>
+
+                  
+                  :
+                    <Text></Text>
+                ]
+                :
+                <Text></Text>
+              
+              }
+
+
+
+            
         </View>
       </View>
     );
@@ -182,33 +219,71 @@ PolygonCreator.propTypes = {
 const styles = StyleSheet.create({
   container: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   map: {
-    ...StyleSheet.absoluteFillObject,
+      height : '80%',
+      width: '100%'
   },
   bubble: {
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    backgroundColor: '#ffd600',
     paddingHorizontal: 18,
     paddingVertical: 12,
-    borderRadius: 20,
+    borderRadius: 10,
   },
   latlng: {
     width: 200,
     alignItems: 'stretch',
   },
   button: {
-    width: 80,
+    width: 150,
     paddingHorizontal: 12,
     alignItems: 'center',
-    marginHorizontal: 10,
+    
   },
   buttonContainer: {
     flexDirection: 'row',
-    marginVertical: 20,
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
+  div_texto: {
+    
+    backgroundColor : '#616161',
+    width: '100%',
+    height: '10%'
+  },
+  titulo_filtros: {
+    fontSize: 20,
+    fontWeight: '200',
+    color:'#ffd600',
+    textAlign: 'center',
+    
+},
+letra_filtros: {
+  fontSize:15,
+  color: '#eeee'
+},
+bold: {
+  fontWeight: 'bold'
+},
+
+perimetro_definido: {
+  color: '#00A331',
+  fontWeight:'bold',
+  fontSize: 18
+},
+
+boton_regresar_menu: {
+  borderRadius: 20,
+  padding: 10,
+  elevation: 2,
+  backgroundColor: "#616161",
+},
+text_btn_regresar: {
+  color: "#ffd600",
+  fontWeight: "bold",
+  textAlign: "center"
+},
 });
 
 module.exports = PolygonCreator;
