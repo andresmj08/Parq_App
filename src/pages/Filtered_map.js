@@ -46,7 +46,7 @@ Sitios_Mapa_Filtro = () => {
     const { vehiculo_var } = this.state;
     
                 
-    fetch('http://192.168.2.1/Parq_App_Conection/filter_parqs.php', {
+    fetch('http://34.217.178.10/Conexion_Parq_app/filter_parqs.php', {
         method: 'POST',
         headers:{
             'Accept':'application/json',
@@ -71,9 +71,7 @@ Sitios_Mapa_Filtro = () => {
 
         
 }      
-    
-
-    
+ 
 
 
 render() {
@@ -88,7 +86,8 @@ render() {
             this.state.markers.length 
             ?
              <Text style= {styles.titulo_filtros}>De los siguientes filtros : {"\n"}
-             <Text style = {styles.letra_filtros}>Tipo de Vehiculo: <Text style = {styles.bold}>{ this.state.vehiculo_var  == 1 ? 'Carro' : 'Moto'}</Text> Valor Desde: <Text style = {styles.bold}>${this.state.valor_inicial_var}</Text> Hasta: <Text style = {styles.bold}>${this.state.valor_final_var}</Text> </Text></Text>
+             <Text style = {styles.letra_filtros}>Tipo de Vehículo: <Text style = {styles.bold}>{ this.state.vehiculo_var  == 1 ? 'Carro' : 'Moto'}</Text> Valor Desde: <Text style = {styles.bold}>${this.state.valor_inicial_var}</Text> Hasta: <Text style = {styles.bold}>${this.state.valor_final_var}
+             {"\n"}Se encontraró(n) {this.state.markers.length} resultado (s)</Text> </Text></Text>
          :
             <Text style= {styles.titulo_sin_resultados}> No se encontraron Registros:{"\n"}
              <Text style = {styles.letra_filtros}>Por Favor cambia los valores de búsqueda</Text> </Text>

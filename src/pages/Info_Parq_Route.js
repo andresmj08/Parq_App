@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert, Modal, StyleSheet, Text, Pressable, View, Image } from "react-native";
 import { Icon } from 'react-native-elements';
 
@@ -7,16 +7,11 @@ const Info_Parq_Route = (props) => {
   
   const [modalVisible, setModalVisible] = useState(false);
   const id_parqueadero = props.Id_Parq;
-  const [register_parq, setRegister] = useState(false);
-  const [Datos_Parq, setDatos_Parq] = useState({
-    hora_moto: 300,
-    hora_carro: 2600,
-    apertura: '08:00',
-    cierre: '18:00'
-  });
+  const [Datos_Parq, setDatos_Parq] = useState({});
   
 
-  fetch('http://34.217.178.10/Conexion_Parq_app/info_sitios.php', {
+
+  fetch('http://34.217.178.10/Conexion_Parq_app/new_info_sitios.php', {
         method: 'POST',
         headers:{
             'Accept':'application/json',
@@ -27,26 +22,29 @@ const Info_Parq_Route = (props) => {
         })
     }).then((respuesta)=> respuesta.json())
     .then((respuestaJson) => {
-      if(respuestaJson == 1){
+      
+        setDatos_Parq(respuestaJson);
         
-        setRegister(true);
                
-      }
-    });
-  
-    fetch('http://34.217.178.10/Conexion_Parq_app/visite_record.php', {
-      method: 'POST',
-      headers:{
-          'Accept':'application/json',
-          'Content-Type':'application/json'
-      },
-      body: JSON.stringify({
-          id_parq:id_parqueadero
-      })
+      
+    }).catch((error) => {
+      alert(error);
   });
+  
+    // fetch('http://34.217.178.10/Conexion_Parq_app/visite_record.php', {
+    //   method: 'POST',
+    //   headers:{
+    //       'Accept':'application/json',
+    //       'Content-Type':'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //       id_parq:id_parqueadero
+    //   })
+  // });
   
   
 
+  
   
   return (
     <View style={styles.centeredView}>
@@ -61,7 +59,10 @@ const Info_Parq_Route = (props) => {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}> 
+          {/* <Text>{JSON.stringify(Datos_Parq)}</Text> */}
+          
 
+          
           <View style={styles.row}>
             <View style={[styles.fraccion, styles.unique_box, styles.button]}>
               <Text style={styles.bold_text}>Valor de Fracción</Text>
@@ -92,11 +93,11 @@ const Info_Parq_Route = (props) => {
 
 
          <Text style={styles.modalText}>{"\n"}<Icon name='calendar' size={30} type='evilicon'  color='#b6ad05'/>Horario de Atención de:{"\n"} <Text style={styles.bold_text}>{Datos_Parq.apertura}</Text> hasta: <Text style={styles.bold_text}>{Datos_Parq.cierre}</Text></Text>
-           {register_parq 
+           {Datos_Parq.registrado 
               ? <Text style={styles.register_ok}> <Icon name='check' size={30} type='evilicon'  color='green'/>Registrado en Cámara de Comercio{"\n"}</Text>
               : <Text style={styles.no_register}> <Icon name='exclamation' size={30} type='evilicon'  color='red'/> Sin registro en Cámara de Comercio{"\n"}</Text>
             }
-            <Text style={styles.modalText}><Icon name='location' size={30} type='evilicon'  color='#b6ad05'/>Estas a {props.distancia} Km hasta <Text style={styles.bold_text}>{props.Parqueadero}</Text></Text>
+            <Text style={styles.modalText}><Icon name='location' size={30} type='evilicon'  color='#b6ad05'/>Estas a {props.distancia} Km hasta <Text style={styles.bold_text}>{Datos_Parq.nombre}</Text></Text>
             <Text style={styles.modalText}><Icon name='clock' size={30} type='evilicon'  color='#b6ad05'/>Con un promedio de {props.tiempo} Minutos</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}

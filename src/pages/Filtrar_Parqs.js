@@ -27,7 +27,7 @@ export default class Filtrar_Parqs extends Component <{}>{
               <Text style={styles.letter}>Filtrar Parqs! <Icon name='search'  type='evilicon'  color='#ffd600' /> {"\n"}  ____________________________________</Text>
               
                       
-              <Text style={styles.letter}>Seleccione el tipo de Vehiculo</Text>
+              <Text style={styles.letter_titles}>Seleccione el tipo de Vehículo</Text>
                 
               <View style={styles.card}>
                 <Picker
@@ -43,14 +43,14 @@ export default class Filtrar_Parqs extends Component <{}>{
 
 
 
-                <Text style={styles.letter}>Seleccione el rango de Valores</Text>
+                <Text style={styles.letter_titles}>Seleccione el rango de Valores</Text>
 
                 <View style= {styles.row}>
                     <View style= {styles.fraccion}>
                     <TextInput
                         style= {styles.input_box_values}
                         underlineColorAndroid='rgba(0,0,0,0)'
-                        placeho lder= 'Desde'
+                        placeholder= 'Desde'
                         placeholderTextColor= '#212121'
                         onChangeText = {valor_inicial => this.setState({valor_inicial})}
                     />
@@ -185,7 +185,15 @@ const styles = StyleSheet.create({
       letter_values:{
           fontSize: 15,
           fontWeight: 'bold'
-      }
+      },
+
+      letter_titles: {
+        fontSize: 18,
+        fontWeight: '200',
+        color:'white',
+        textAlign: 'center',
+        marginVertical: 10,
+      },
 
     });
   
