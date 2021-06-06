@@ -114,6 +114,7 @@ const Registrar_Parq = () => {
     const { longitud_map } = Datos_Parq;
     const { valor_carro } = Datos_Parq;
     const { valor_moto } = Datos_Parq;
+    const { servicios } = Datos_Parq;
     const apertura  = hora_apertura.getHours()  + ':' +  hora_apertura.getMinutes() + ':00' ;
     const cierre  = hora_cierre.getHours()  + ':' + hora_cierre.getMinutes() + ':00';
 
@@ -137,6 +138,7 @@ const Registrar_Parq = () => {
         valor_moto: valor_moto,
         apertura: apertura,
         cierre: cierre,
+        servicios: servicios,
     })
 }).then((respuesta)=> respuesta.json())
 .then((respuestaJson) => {
@@ -205,6 +207,14 @@ const Registrar_Parq = () => {
                   placeholder= 'Dirección'
                   placeholderTextColor= '#212121'
                   onChangeText = {direccion => setDatos_Parq({... Datos_Parq, direccion : direccion})}
+                />
+
+                <TextInput
+                  style= {styles.input_box}
+                  underlineColorAndroid='rgba(0,0,0,0)'
+                  placeholder= 'Servicios Adicionales Ofrecidos'
+                  placeholderTextColor= '#212121'
+                  onChangeText = {servicios => setDatos_Parq({... Datos_Parq, servicios : servicios})}
                 />
                 
                 <View style={styles.row}>
