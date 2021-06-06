@@ -53,7 +53,7 @@ const Info_Parq_Route = (props) => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
+          Alert.alert("Se ha minimizado la Informacion del Parq!");
           setModalVisible(!modalVisible);
         }}
       >
@@ -93,7 +93,7 @@ const Info_Parq_Route = (props) => {
 
 
          <Text style={styles.modalText}>{"\n"}<Icon name='calendar' size={30} type='evilicon'  color='#b6ad05'/>Horario de Atención de:{"\n"} <Text style={styles.bold_text}>{Datos_Parq.apertura}</Text> hasta: <Text style={styles.bold_text}>{Datos_Parq.cierre}</Text></Text>
-           {Datos_Parq.registrado 
+           {Datos_Parq.registrado == 1
               ? <Text style={styles.register_ok}> <Icon name='check' size={30} type='evilicon'  color='green'/>Registrado en Cámara de Comercio{"\n"}</Text>
               : <Text style={styles.no_register}> <Icon name='exclamation' size={30} type='evilicon'  color='red'/> Sin registro en Cámara de Comercio{"\n"}</Text>
             }

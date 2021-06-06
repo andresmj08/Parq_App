@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput, CheckBox } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import { Icon } from 'react-native-elements';
 
-import Logo from '../components/Logo';
+
+const dias = [
+  { value: "lunes", label:"Lunes"},
+  { value: "martes", label:"Jueves"},
+  { value: "miercoles", label:"Miercoles"}
+];
+
 
 export default class Filtrar_Parqs extends Component <{}>{
 
@@ -18,10 +24,15 @@ export default class Filtrar_Parqs extends Component <{}>{
     }
 
  
-    
+     UpdateDias = selectedOption => {
+       this.setState({selectedOption});
+
+
+     };
 
 
     render(){
+
       return(
         <View style= {styles.container}>
               <Text style={styles.letter}>Filtrar Parqs! <Icon name='search'  type='evilicon'  color='#ffd600' /> {"\n"}  ____________________________________</Text>
@@ -50,7 +61,7 @@ export default class Filtrar_Parqs extends Component <{}>{
                     <TextInput
                         style= {styles.input_box_values}
                         underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder= 'Desde'
+                        placeholder= '$ Desde'
                         placeholderTextColor= '#212121'
                         onChangeText = {valor_inicial => this.setState({valor_inicial})}
                     />
@@ -61,7 +72,7 @@ export default class Filtrar_Parqs extends Component <{}>{
                     <TextInput
                         style= {styles.input_box_values}
                         underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder= 'Hasta'
+                        placeholder= '$ Hasta'
                         placeholderTextColor= '#212121'
                         onChangeText = {valor_final => this.setState({valor_final})}
                     />
@@ -71,7 +82,55 @@ export default class Filtrar_Parqs extends Component <{}>{
 
                 </View>
 
-               
+
+
+                <Text style={styles.letter_titles}>Elija un Horario </Text>
+                <View style= {styles.row}>
+                    <View style= {styles.fraccion}>
+                    <TextInput
+                       
+                        style = {styles.input_hora}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "08:00 AM"
+                        placeholderTextColor = "#212121"
+                        autoCapitalize = "none"
+                    />
+                    <Text style={styles.letter_values}>Abierto Desde</Text>
+                    </View>
+
+                    <View style= {styles.fraccion}>
+                    <TextInput
+                       
+                        style = {styles.input_hora}
+                        underlineColorAndroid = "transparent"
+                        placeholder = "09:30 PM"
+                        placeholderTextColor = "#212121"
+                        autoCapitalize = "none"
+                    />
+                    <Text style={styles.letter_values}>Abierto Hasta</Text>
+                    </View>
+                    
+
+                </View>
+
+
+            <Text style={styles.letter_titles}>Seleccione los Dias </Text>
+              <View style={styles.checkboxContainer}>
+                <CheckBox
+                  value={true}
+                  style={styles.checkbox}
+               /><Text>Lunes</Text>
+               <CheckBox
+                  value={false}
+                  style={styles.checkbox}
+               /><Text>Martes</Text>
+               <CheckBox
+                  value={true}
+                  style={styles.checkbox}
+               /><Text>Miercoles</Text>
+              </View>
+
+  
                  
             {/* <Text>{this.state.valor_inicial}</Text>
             <Text>{this.state.valor_final}</Text>
@@ -83,7 +142,7 @@ export default class Filtrar_Parqs extends Component <{}>{
                     valor_final: this.state.valor_final,
                     vehiculo: this.state.vehiculo
                   })}>
-                <Text style={styles.textButton}  > Buscar </Text>
+                <Text style={styles.textButton}  > Buscar Parqs!</Text>
                 </TouchableOpacity>
 
           </View>
@@ -131,7 +190,6 @@ const styles = StyleSheet.create({
       input_box: {
         width: 300,
         backgroundColor:'#fff9c4',
-        borderRadius: 25,
         paddingHorizontal: 16,
         fontSize: 18,
         color: '#212121',
@@ -154,7 +212,7 @@ const styles = StyleSheet.create({
       card:{
         borderWidth: 1,
         width: 100,
-        borderRadius: 20,
+        
         backgroundColor: "#F6E8AE",
         marginTop: 10,
         marginLeft: 4
@@ -170,11 +228,11 @@ const styles = StyleSheet.create({
         
             width: 100,
             backgroundColor:'#fff9c4',
-            borderRadius: 25,
+            borderRadius: 15,
             paddingHorizontal: 16,
             fontSize: 18,
             color: '#212121',
-            marginVertical: 10,
+            marginVertical: 5,
             height: 50
       },
       fraccion: {
@@ -193,6 +251,23 @@ const styles = StyleSheet.create({
         color:'white',
         textAlign: 'center',
         marginVertical: 10,
+      },
+      input_hora:{
+        width: 150,
+        height: 40,
+        borderWidth: 1,
+        backgroundColor: '#fff9c4',
+        borderBottomColor: '#ffd600',
+        borderBottomWidth: 5, 
+        paddingHorizontal:40,
+        fontSize:15
+      },
+      checkboxContainer: {
+        flexDirection: "row",
+        marginBottom: 20,
+      },
+      checkbox: {
+        alignSelf: "center",
       },
 
     });
