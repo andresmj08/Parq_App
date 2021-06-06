@@ -17,9 +17,14 @@ export default class HomeScreen extends Component <{}>{
               <Text style={styles.letter}>Bienvenido a Parq Pereira!{"\n"}  ____________________________________</Text>
               <Text style={styles.perfil}> Te ayudamos a encontrar {"\n"} la mejor opción de Parqueo {"\n"} en Pereira! </Text>
 
-              <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Registrar_Parq')}>
+              <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Mapa_Parqs')}>
                   <Text style={styles.textButton} > Buscar Parqs! </Text>
-                </TouchableOpacity> 
+               </TouchableOpacity> 
+
+
+               <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Filtrar_Parqs')}>
+                  <Text style={styles.textButton} > Filtrar Parqs! </Text>
+               </TouchableOpacity> 
           </View>
     
       );
@@ -46,7 +51,7 @@ const styles = StyleSheet.create({
         width: 150,
         backgroundColor:'#ffd600',
         borderRadius: 25,
-        marginVertical: 50,
+        marginVertical: 15,
         paddingVertical: 16,
         
     

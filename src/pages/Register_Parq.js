@@ -114,8 +114,8 @@ const Registrar_Parq = () => {
     const { longitud_map } = Datos_Parq;
     const { valor_carro } = Datos_Parq;
     const { valor_moto } = Datos_Parq;
-    const apertura  = hora_apertura.getHours()  + hora_apertura.getMinutes() ;
-    const cierre  = hora_cierre.getHours()  + hora_cierre.getMinutes() ;
+    const apertura  = hora_apertura.getHours()  + ':' +  hora_apertura.getMinutes() + ':00' ;
+    const cierre  = hora_cierre.getHours()  + ':' + hora_cierre.getMinutes() + ':00';
 
 //alert( matricula + ' ' + nombres + ' ' + nit + ' ' + direccion + ' ' + latitud_map + ' ' + longitud_map + ' carro '+ valor_carro + ' moto '+ valor_moto + ' ' + apertura + ' ' + cierre );
 

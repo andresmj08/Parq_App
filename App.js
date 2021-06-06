@@ -15,6 +15,9 @@ import Route_to_Site from './src/pages/Route';
 import Register_Parq from './src/pages/Register_Parq';
 import MarkerMap from './src/pages/slide_marker';
 import PolygonCreator from './src/pages/polygon_map';
+import dev_comsuption_service from './src/pages/dev_service_comsuption';
+import Filtrar_Parqs from './src/pages/Filtrar_Parqs';
+import Filtered_map from './src/pages/Filtered_map';
 
 
 class Home extends React.Component{
@@ -55,6 +58,15 @@ const AppNavigator = createStackNavigator({
   },
   Poligono: {
     screen: PolygonCreator
+  },
+  dev_service: {
+    screen: dev_comsuption_service
+  },
+  Filtrar_Parqs: {
+    screen: Filtrar_Parqs
+  },
+  Map_Filtro: {
+    screen: Filtered_map
   }
 
 });
