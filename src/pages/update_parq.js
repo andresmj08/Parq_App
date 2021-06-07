@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Switch }  from 'react-native';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Switch, Alert }  from 'react-native';
 import { Icon } from 'react-native-elements';
 import ReactDOM from 'react-dom';
 
@@ -34,7 +34,7 @@ export default class Update_Parq_View extends Component <{}> {
 
         const { id_parq }= this.state;
 
-        fetch('http://192.168.0.2/Parq_App_Conection/new_info_sitios.php', {
+        fetch('http://34.217.178.10/Conexion_Parq_app/new_info_sitios.php', {
 
         method: 'POST',
         headers:{
@@ -58,7 +58,7 @@ export default class Update_Parq_View extends Component <{}> {
 
 
 Actualizar_Info = () => {
-    alert('bien');
+    Alert.alert('Registro Apto para Guardar');
 }
 
 

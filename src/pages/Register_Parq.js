@@ -18,6 +18,8 @@ const LONGITUDE = -75.7041791;
 const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+
+
 export default function Register_Parq(){
 
   const [Datos_Parq, setDatos_Parq] = useState({
@@ -32,7 +34,7 @@ export default function Register_Parq(){
   })
 
 
-  
+
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
@@ -121,7 +123,7 @@ const Registrar_Parq = () => {
 //alert( matricula + ' ' + nombres + ' ' + nit + ' ' + direccion + ' ' + latitud_map + ' ' + longitud_map + ' carro '+ valor_carro + ' moto '+ valor_moto + ' ' + apertura + ' ' + cierre );
 
 
-  fetch('http://192.168.0.2/Parq_App_Conection/register_parq.php', {
+  fetch('http://34.217.178.10/Conexion_Parq_app/register_parq.php', {
     method: 'POST',
     headers:{
         'Accept':'application/json',
@@ -167,6 +169,7 @@ const Registrar_Parq = () => {
       return(
         <View style= {styles.container}>
             <View style= {styles.div_tittle}>
+              
             <Text style={styles.letter}>Registrar Parquedero! <Icon name='plus'  type='evilicon'  color='#ffd600' /> {"\n"}  ____________________________________</Text>
             </View>
 
@@ -415,7 +418,7 @@ const styles = StyleSheet.create({
         width: '100%'
       },
       div_button: {
-        flex: 2,
+        flex: 1,
         
       },
 

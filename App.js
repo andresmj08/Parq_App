@@ -22,6 +22,7 @@ import Menu_SuperAdmin from './src/pages/Menu_SuperAdmin';
 import Estadisticas from './src/pages/Graficos_SuperAdmin';
 import Parqs_for_Admin from './src/pages/Parqs_for_Admins';
 import Update_Parq_View from './src/pages/update_parq';
+import Update_Admin_Info from './src/pages/update_admin';
 
 
 class Home extends React.Component{
@@ -83,6 +84,9 @@ const AppNavigator = createStackNavigator({
   },
   Update_Parq_View:{
     screen: Update_Parq_View
+  },
+  Update_Admin_Info:{
+    screen: Update_Admin_Info
   }
 
 });

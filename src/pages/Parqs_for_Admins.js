@@ -1,3 +1,4 @@
+import { TextareaAutosize } from '@material-ui/core';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
 import { Icon } from 'react-native-elements';
@@ -9,9 +10,11 @@ export default class Parqs_for_Admin extends Component<{}>{
     constructor(props){
         super(props);
 
+        const { params } = this.props.navigation.state;
         this.state = {
-            loading: false,
-            data: []
+            id_admin: params.id_admin,
+            data: [],
+            listar: false
 
         }
     }
@@ -23,19 +26,28 @@ export default class Parqs_for_Admin extends Component<{}>{
 
     getParqs = () => {
 
-        fetch('http://192.168.0.2/Parq_App_Conection/consultar_parqs_admin.php', {
+      const { id_admin } = this.state;
+
+        fetch('http://34.217.178.10/Conexion_Parq_app/consultar_parqs_admin.php', {
         method: 'POST',
         headers:{
             'Accept':'application/json',
             'Content-Type':'application/json'
         },
         body: JSON.stringify({
-            id_admin:1
+            id_admin:id_admin
         })
          }).then((respuesta)=> respuesta.json())
          .then((respuestaJson) => {
+
+          if(respuestaJson == "Vacio"){
+            this.setState({listar : false});
+          }else {
+            this.setState({listar : true});
+            this.setState({data:respuestaJson});
+          }
       
-        this.setState({data:respuestaJson});
+        
         
                
       
@@ -63,10 +75,9 @@ export default class Parqs_for_Admin extends Component<{}>{
                     </View>
 
 
-
                     
 
-
+          {this.state.listar ?
 
                 <View style={{flex:8}}>
                     <FlatList
@@ -74,7 +85,7 @@ export default class Parqs_for_Admin extends Component<{}>{
                         renderItem =  {({item})=>(
                             <View style={styles.item} >
                                 <Text>Nombre: <Text style={styles.title}>{item.nombre}</Text></Text>
-                                <Text>Estado en Platafora: {item.estado == 1 ? <Text style={styles.estado_activo}>Activo</Text> : <Text style={styles.estado_inactivo}>Inactivo</Text>}</Text>
+                                <Text>Estado en Plataforma: {item.estado == 1 ? <Text style={styles.estado_activo}>Activo</Text> : <Text style={styles.estado_inactivo}>Inactivo</Text>}</Text>
                                 <Text> Valor hora Carro: <Text style={styles.bold}>{item.hora_carro}</Text>  Valor hora Moto: <Text style={styles.bold}>{item.hora_moto} </Text></Text>
                                 <Text> Hora Apertura: <Text style={styles.bold}>{item.apertura}</Text> Hora Cierre: <Text style={styles.bold}>{item.cierre} {"\n"}</Text></Text>
                                 
@@ -95,8 +106,14 @@ export default class Parqs_for_Admin extends Component<{}>{
                         
                     />
                 </View>
-
-                
+                :
+                <View style={{flex:8}}>
+                    <View style={styles.item} >
+                      <Text style={styles.estado_inactivo}>No Cuentas con ningun Parqueadero Registrado {"\n"}</Text>
+                      <Text>Registra ahora mismo tus Parqueaderos en ParqApp  </Text>
+                    </View>
+                </View>
+              }
 
             </View>
             
