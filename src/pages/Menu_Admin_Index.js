@@ -31,6 +31,13 @@ export default class Menu_Admin_Index extends Component <{}>{
         this.props.navigation.navigate('Update_Admin_Info',{id_admin});
       }
 
+
+      Ver_parqs_map = () => {
+
+        const id_admin = this.state.id_admin;
+        this.props.navigation.navigate('Map_Admin_Sitio',{id_admin});
+      }
+
     
     render(){
 
@@ -55,8 +62,8 @@ export default class Menu_Admin_Index extends Component <{}>{
                       <Text style={styles.textButton} > <Icon name='pencil'  type='evilicon'  color='#616161' />  Editar Mis Parqueaderos! </Text>
                     </TouchableOpacity>
                     
-                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Mapa_Parqs')}>
-                      <Text style={styles.textButton} > <Icon name='chart'  type='evilicon'  color='#616161' /> Consultar Estadísticas </Text>
+                    <TouchableOpacity style={styles.button} onPress={() => this.Ver_parqs_map()}>
+                      <Text style={styles.textButton} > <Icon name='sc-telegram'  type='evilicon'  color='#616161' /> Ver Mis Parqueaderos en el Mapa! </Text>
                     </TouchableOpacity>
                 </View>
           </View>
