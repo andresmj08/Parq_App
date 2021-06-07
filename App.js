@@ -20,6 +20,8 @@ import Filtered_map from './src/pages/Filtered_map';
 import Login_SuperAdmin from './src/pages/Login_SuperAdmin';
 import Menu_SuperAdmin from './src/pages/Menu_SuperAdmin';
 import Estadisticas from './src/pages/Graficos_SuperAdmin';
+import Parqs_for_Admin from './src/pages/Parqs_for_Admins';
+import Update_Parq_View from './src/pages/update_parq';
 
 
 class Home extends React.Component{
@@ -75,6 +77,12 @@ const AppNavigator = createStackNavigator({
   },
   Estadisticas_SA: {
     screen: Estadisticas
+  },
+  Parqs_for_Admin:{
+    screen: Parqs_for_Admin
+  },
+  Update_Parq_View:{
+    screen: Update_Parq_View
   }
 
 });

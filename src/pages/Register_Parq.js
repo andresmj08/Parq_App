@@ -121,7 +121,7 @@ const Registrar_Parq = () => {
 //alert( matricula + ' ' + nombres + ' ' + nit + ' ' + direccion + ' ' + latitud_map + ' ' + longitud_map + ' carro '+ valor_carro + ' moto '+ valor_moto + ' ' + apertura + ' ' + cierre );
 
 
-  fetch('http://34.217.178.10/Conexion_Parq_app/register_parq.php', {
+  fetch('http://192.168.0.2/Parq_App_Conection/register_parq.php', {
     method: 'POST',
     headers:{
         'Accept':'application/json',
