@@ -26,9 +26,10 @@ export default class Map_Admin_Sitio extends Component <{}> {
                 longitude: LONGITUDE,
                 latitudeDelta : LATITUDE_DELTA,
                 longitudeDelta : LONGITUDE_DELTA,
-                id_admin: params.id_admin,
-                tiene_parqs: false
+                
             },
+            id_admin: params.id_admin,
+            tiene_parqs: false,
             markers:[],
         }
         this.Sitios_Mapa()
