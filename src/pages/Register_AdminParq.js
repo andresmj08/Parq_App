@@ -15,7 +15,9 @@ export default class Register_AdminParq extends Component <{}>{
             documento: '',
             telefono: '',
             correo: '',
-            pass: '' 
+            pass: '',
+            validacion_correo: false,
+            validacion_pass: false
         };
     }
     
@@ -61,6 +63,36 @@ export default class Register_AdminParq extends Component <{}>{
     }
 
 
+    validate = (text) => {
+      
+      let reg = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i;
+      if (reg.test(text) === false) {
+        // alert("Formato de Correo no Valido");
+        
+        this.setState({validacion_correo:false});
+      }else{
+        this.setState({validacion_correo:true});
+        this.setState({correo:text});
+      }
+
+      
+    }
+
+    validacion_password = (contraseña) =>{
+      if(contraseña.length < 5 ){
+        this.setState({validacion_pass:false});
+      }else{
+        this.setState({validacion_pass:true});
+        this.setState({pass:contraseña});
+
+      }
+    } 
+
+
+    Incompletos = () =>{
+      Alert.alert('Faltan Validaciones por Completar');
+    }
+
     render(){
       return(
         <View style= {styles.container}>
@@ -104,21 +136,33 @@ export default class Register_AdminParq extends Component <{}>{
                   underlineColorAndroid='rgba(0,0,0,0)'
                   placeholder= 'Correo'
                   placeholderTextColor= '#212121'
-                  onChangeText = {correo => this.setState({correo})}
+                  onChangeText = {(text) => this.validate(text)}
                 />
+                {this.state.validacion_correo ? <Text  style={{color:'#82E0AA'}}>Formato Correo Valido</Text> : <Text style={{color:'#EC7063'}}> Correo Invalido</Text>}
+                <Text>{this.state.correo}</Text>
 
                  <TextInput
                   style= {styles.input_box}
                   underlineColorAndroid='rgba(0,0,0,0)'
                   placeholder= 'Contraseña'
                   placeholderTextColor= '#212121'
-                  onChangeText = {pass => this.setState({pass})}
+                  // onChangeText = {pass => this.setState({pass})}
+                  onChangeText = {(pass) => this.validacion_password(pass)}
                 />
+                {this.state.validacion_pass ? <Text  style={{color:'#82E0AA'}}>Contraseña Válida</Text> : <Text style={{color:'#EC7063'}}> La contraseña debe contener mas de 5 caracteres</Text>}
+                
+                {this.state.validacion_pass && this.state.validacion_correo ? 
+                   <TouchableOpacity style={styles.button} onPress={this.Registrar}>
+                       <Text style={styles.textButton}  > Registrarme </Text>
+                    </TouchableOpacity>
+                   : 
+                   <TouchableOpacity style={styles.button_no_active} onPress={this.Incompletos}>
+                       <Text style={styles.textButton}  > Registrarme </Text>
+                    </TouchableOpacity>
+                   
+                  }
 
 
-               <TouchableOpacity style={styles.button} onPress={this.Registrar}>
-                  <Text style={styles.textButton}  > Registrarme </Text>
-                </TouchableOpacity>
 
           </View>
     
@@ -141,8 +185,6 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         marginVertical: 10,
         paddingVertical: 20,
-        
-    
       },
       textButton: {
         fontSize: 15,
@@ -173,7 +215,15 @@ const styles = StyleSheet.create({
         fontWeight: '200',
         color:'#212121',
         textAlign: 'center',
-      }
+      },
+
+      button_no_active: {
+        width: 300,
+        backgroundColor:'#839192',
+        borderRadius: 25,
+        marginVertical: 10,
+        paddingVertical: 20,
+      },
     });
   
   

@@ -5,16 +5,67 @@ import { Icon } from 'react-native-elements';
  
 export default class Estadisticas extends Component<{}> {
 
+  constructor(props){
+    super(props);
+    this.state = {
+        
+        Estadisticas: [],
+        
+        }
+        this.getInfoAdmin();
+ 
+    }
+
+
+  componentDidMount(){
+    this.getInfoAdmin();
+}
+
+
+getInfoAdmin = () => {
+
+    
+
+    fetch('http://34.217.178.10/Conexion_Parq_app/parqs_por_estado.php', {
+
+    method: 'POST',
+    headers:{
+        'Accept':'application/json',
+        'Content-Type':'application/json'
+    }
+   
+}).then((respuesta)=> respuesta.json())
+.then((respuestaJson) => {
+    
+    this.setState({Estadisticas:respuestaJson});
+    
+    
+}).catch((error) => {
+    alert(error);
+});
+
+}
+
 
 
     render() {
+
+      const Activos = parseInt(this.state.Estadisticas.Activos,10);
+      const Inactivos = parseInt(this.state.Estadisticas.Inactivos,10);
+      const Registrados_CC = parseInt(this.state.Estadisticas.Registrado,10);
+      const Sin_Registro_CC = parseInt(this.state.Estadisticas.No_Registrado,10);
+      const Admins = parseInt(this.state.Estadisticas.Admins,10);
+      const total_parqs = Activos + Inactivos;
         return(
 
             <View style={styles.container}> 
-                <Text style={styles.letter}>Estadísticas Parq Pereira! <Icon name='plus'  type='evilicon'  color='#ffd600' /> {"\n"}  ____________________________________</Text>
 
+            
+                <Text style={styles.letter}>Estadísticas Parq Pereira! <Icon name='plus'  type='evilicon'  color='#ffd600' /> {"\n"}  ____________________________________</Text>
+                  
                 <View style={{alignItems:'center', marginTop:15}}>
-                <Text style = {styles.letra_Informativa}>Tenemos: <Text style = {styles.bold}>30 Parqueaderos</Text> <Text style = {styles.letra_Informativa}> en el App </Text></Text>
+                <Text style = {styles.letra_Informativa}>Se han registrado <Text style = {styles.bold}>{Admins}</Text> Administradores <Icon name='user'  type='evilicon'  color='#ffd600' />  </Text>
+                <Text style = {styles.letra_Informativa}>Tenemos: <Text style = {styles.bold}>{total_parqs} Parqueaderos</Text> <Text style = {styles.letra_Informativa}> en el App </Text></Text>
                 </View>
 
                 <View style={{alignItems:'center', marginTop:15}}>
@@ -24,23 +75,50 @@ export default class Estadisticas extends Component<{}> {
                 <View style={styles.row}>
                     
                   <View style={[styles.fraccion]}>
-                  <Text style={styles.letter}>Activos</Text>
-                  <Text style={styles.texto_valores}>30</Text>
+                  <Text style={styles.letter}>Inactivos</Text>
+                  <Text style={styles.texto_valores}>{Inactivos}</Text>
 
                   </View>
 
-                  <View style={[styles.fraccion]}>
-                  <Text style={styles.letter}>Inactivos</Text>
-                  <Text style={styles.texto_valores}>7</Text>
+                  
 
+                  <View style={[styles.fraccion]}>
+                  <Text style={styles.letter}>Activos</Text>
+                  <Text style={styles.texto_valores}>{Activos}</Text>
                   </View>
                   
                </View>
 
 
                 <View style={{ marginTop:15}}>
-                    <ProgressCircle style={{ height: 200 }} progress={0.25} progressColor={'#ffd600'} />
+                    <ProgressCircle 
+                      style={{ height: 200 }} 
+                      progress={Activos/total_parqs} 
+                      progressColor={'#ffd600'}
+                      percent={Activos/total_parqs}
+
+                      
+                      variant="overBackground"
+                      />
                 </View>
+
+                <Text style={styles.letter}>____________________________________</Text>
+
+                <View style={styles.row}>
+                    
+                  <View style={[styles.fraccion]}>
+                  <Text style={styles.letter_Camara}>Registrados en Cámara Comercio</Text>
+                  <Text style={styles.texto_valores}>{Registrados_CC}</Text>
+
+                  </View>
+
+                  <View style={[styles.fraccion]}>
+                  <Text style={styles.letter_Camara}>Sin registro en Cámara Comercio</Text>
+                  <Text style={styles.texto_valores}>{Sin_Registro_CC}</Text>
+
+                  </View>
+                  
+               </View>
             </View>
          
 
@@ -92,5 +170,12 @@ const styles = StyleSheet.create({
           fontSize: 18,
           fontWeight:'bold',
           color: 'white'
-      }
+      },
+      letter_Camara: {
+        fontSize: 15,
+        fontWeight: '200',
+        color:'#ffd600',
+        textAlign: 'center',
+        marginVertical: 10,
+      },
 });

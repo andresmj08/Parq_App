@@ -13,6 +13,8 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 //
 export default class Mapa_Parqs extends Component <{}> {
+
+  
     constructor(props){
         super(props);
 
@@ -25,8 +27,14 @@ export default class Mapa_Parqs extends Component <{}> {
             },
             markers:[],
         }
-        this.Sitios_Mapa()
+        
     }
+
+    componentDidMount(){
+      this.Sitios_Mapa()
+    }
+
+
     Sitios_Mapa = () => {
       
 

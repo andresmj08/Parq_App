@@ -112,8 +112,8 @@ const Registrar_Parq = () => {
     const { nombres } = Datos_Parq;
     const { nit } = Datos_Parq;
     const { direccion } = Datos_Parq;
-    const { latitud_map } = Datos_Parq;
-    const { longitud_map } = Datos_Parq;
+    const { latitude } = Marker_Position;
+    const { longitude } = Marker_Position;
     const { valor_carro } = Datos_Parq;
     const { valor_moto } = Datos_Parq;
     const { servicios } = Datos_Parq;
@@ -134,8 +134,8 @@ const Registrar_Parq = () => {
         nombres:nombres,
         nit:nit,
         direccion:direccion,
-        latitud_map:latitud_map,
-        longitud_map:longitud_map,
+        latitud_map:latitude,
+        longitud_map:longitude,
         valor_carro:valor_carro,
         valor_moto: valor_moto,
         apertura: apertura,
@@ -148,6 +148,7 @@ const Registrar_Parq = () => {
         Alert.alert("Debes completar todos los campos");
   }else  if(respuestaJson == "Registrado"){
         Alert.alert("Parq Registrado con Exito!");
+        
         
     }else  if(respuestaJson == "ya_existe_registro"){
       Alert.alert("Este Parqueadero ya se encuentra Registrado");
@@ -175,6 +176,7 @@ const Registrar_Parq = () => {
 
             <View style= {styles.div_inputs}>
 
+            <Text>*** Numero de Matrícula</Text>
             <TextInput
                   style= {styles.input_box}
                   underlineColorAndroid='rgba(0,0,0,0)'
@@ -183,6 +185,8 @@ const Registrar_Parq = () => {
                   onChangeText = {matricula => setDatos_Parq({... Datos_Parq, matricula : matricula})}
                 />
                 
+
+                <Text>*** Nit del Parq!</Text>
                 <TextInput
                   style= {styles.input_box}
                   underlineColorAndroid='rgba(0,0,0,0)'
@@ -192,10 +196,7 @@ const Registrar_Parq = () => {
                 />
 
 
-               
-               
-
-                 
+              <Text>*** Nombre del establecimiento</Text>
                 <TextInput
                   style= {styles.input_box}
                   underlineColorAndroid='rgba(0,0,0,0)'
@@ -204,6 +205,8 @@ const Registrar_Parq = () => {
                   onChangeText = {nombres => setDatos_Parq({... Datos_Parq, nombres : nombres})}
                 />
 
+
+                <Text>*** Dirección del parq!</Text>
                 <TextInput
                   style= {styles.input_box}
                   underlineColorAndroid='rgba(0,0,0,0)'

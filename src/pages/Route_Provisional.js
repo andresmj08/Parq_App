@@ -1,10 +1,11 @@
 
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import { TouchableOpacity,StyleSheet, Text, View, Dimensions, Modal, Alert } from 'react-native';
 import MapView, {Marker, ProviderProptype} from 'react-native-maps';
 import MapViewDirections, {} from 'react-native-maps-directions';
 import { Icon } from 'react-native-elements';
 import Info_Parq_Route from './Info_Parq_Route';
+import * as Location from 'expo-location';
 
 const { width, height } = Dimensions.get('window');
 
@@ -24,7 +25,11 @@ export default class Ruta_al_Parq extends Component <{}> {
 
         this.state = {
             distancia: 0,
-            duracion: 0
+            duracion: 0,
+            current_latitud: 0,
+            current_longitud: 0,
+            ubicacion: false,
+            permiso_gps: false
         };
 
         this.MapView = null;
@@ -40,12 +45,38 @@ export default class Ruta_al_Parq extends Component <{}> {
             })
         }
         
-    
+
+        componentDidMount() {
+            this._getLocationAsync();
+          }
+        
+        _getLocationAsync = async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                this.setState({ubicacion:false});
+              return;
+            }else{
+
+                this.setState({ubicacion:true});
+
+                let location = await Location.getCurrentPositionAsync({});
+            
+                this.setState({current_latitud : JSON.stringify(location.coords.latitude)});
+                this.setState({current_longitud : JSON.stringify(location.coords.longitude)});
+            }
+      
+         
+
+            
+            
+           };
 
     
 
 
 render() {
+
+    
 
         const { params } = this.props.navigation.state;
         const latitudeDestino = params ? params.latitudeDestino : null;
@@ -53,13 +84,14 @@ render() {
         const Parqueadero = params ? params.Parqueadero : null;
         const Id_Parq = params ? params.Id_Parq : null;
 
-        const origin = {latitude: 4.799988, longitude: -75.709711 };
+        
+        const origin = {latitude: this.state.current_latitud, longitude: this.state.current_longitud};
         const destination = { latitude: parseFloat(latitudeDestino), longitude: parseFloat(longitudeDestino)};
         
 
         const coordinates = [{
-            latitude: 4.799988,
-            longitude: -75.709711,
+            latitude: this.state.current_latitud,
+            longitude: this.state.current_longitud,
         },
         {
             latitude:  parseFloat(latitudeDestino),
@@ -70,6 +102,7 @@ render() {
         
     return(
         <View style={StyleSheet.absoluteFillObject}>
+            
             <MapView
                 style = { styles.map_style}
             initialRegion = {{
@@ -88,7 +121,7 @@ render() {
                 <MapView.Marker 
                     key = {`coordinate_${index}`} 
                     coordinate = {coordinate}
-                    title = { Parqueadero }
+                    title = { 'Bien' }
                     image = {require('../components/imagenes/Marker_Map.png')}
                     />
                 
