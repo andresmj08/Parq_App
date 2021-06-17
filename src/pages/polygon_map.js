@@ -140,7 +140,7 @@ class PolygonCreator extends React.Component {
 
             
         </View>
-        <Text>{this.state.polygons.length}</Text>
+        {/* <Text>{this.state.polygons.length}</Text> */}
         {/*<Text>{JSON.stringify(this.state.polygons)}</Text> */}
         <MapView
           provider={this.props.provider}
