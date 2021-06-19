@@ -123,6 +123,7 @@ update_info = () => {
 .then((respuestaJson) => {
     if(respuestaJson == "Actualizado"){
         Alert.alert("Muy bien!", "Actualizaste datos");
+        this.props.navigation.navigate('Menu_Admin',{id_admin});
     }else{
         Alert.alert("Paila");
     }
@@ -163,12 +164,6 @@ render() {
                         />
                     </View>
 
-
-                    <Text>{this.state.nombres}</Text>
-                    <Text>{this.state.apellidos}</Text>
-                    <Text>{this.state.documento}</Text>
-                    <Text>{this.state.telefono}</Text>
-                    <Text>{this.state.correo}</Text>
                     
 
                     <View style={{flexDirection: 'row'}}>
