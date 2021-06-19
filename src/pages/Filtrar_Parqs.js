@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput, CheckBox } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, TextInput, CheckBox, SafeAreaView, ScrollView, StatusBar, Dimensions } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import { Icon } from 'react-native-elements';
 
@@ -34,119 +34,141 @@ export default class Filtrar_Parqs extends Component <{}>{
     render(){
 
       return(
-        <View style= {styles.container}>
-              <Text style={styles.letter}>Filtrar Parqs! <Icon name='search'  type='evilicon'  color='#ffd600' /> {"\n"}  ____________________________________</Text>
-              
+        <SafeAreaView style={styles.container_view}>
+          <ScrollView>
+              <View style= {styles.container}>
+                    <Text style={styles.letter}>Filtrar Parqs! <Icon name='search'  type='evilicon'  color='#ffd600' /> {"\n"}  ____________________________________</Text>
+                    
+                            
+                    <Text style={styles.letter_titles}>Seleccione el tipo de Vehículo</Text>
                       
-              <Text style={styles.letter_titles}>Seleccione el tipo de Vehículo</Text>
-                
-              <View style={styles.card}>
-                <Picker
-                    
-                    selectedValue={this.state.vehiculo}
-                    style={styles.picker_style}
-                    onValueChange={(itemvalue) => this.setState({vehiculo:itemvalue})}
-                >
-                    <Picker.Item label="Carro" value="1"/>
-                    <Picker.Item label="Moto" value="2" />
-                </Picker>
-                </View>
+                    <View style={styles.card}>
+                      <Picker
+                          
+                          selectedValue={this.state.vehiculo}
+                          style={styles.picker_style}
+                          onValueChange={(itemvalue) => this.setState({vehiculo:itemvalue})}
+                      >
+                          <Picker.Item label="Carro" value="1"/>
+                          <Picker.Item label="Moto" value="2" />
+                      </Picker>
+                      </View>
 
 
 
-                <Text style={styles.letter_titles}>Seleccione el rango de Valores</Text>
+                      <Text style={styles.letter_titles}>Seleccione el rango de Valores</Text>
 
-                <View style= {styles.row}>
-                    <View style= {styles.fraccion}>
-                    <TextInput
-                        style= {styles.input_box_values}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder= '$ Desde'
-                        placeholderTextColor= '#212121'
-                        onChangeText = {valor_inicial => this.setState({valor_inicial})}
-                    />
-                    <Text style={styles.letter_values}>Valor Hora Desde</Text>
-                    </View>
+                      <View style= {styles.row}>
+                          <View style= {styles.fraccion}>
+                          <TextInput
+                              style= {styles.input_box_values}
+                              underlineColorAndroid='rgba(0,0,0,0)'
+                              placeholder= '$ Desde'
+                              placeholderTextColor= '#212121'
+                              onChangeText = {valor_inicial => this.setState({valor_inicial})}
+                          />
+                          <Text style={styles.letter_values}>Valor Hora Desde</Text>
+                          </View>
 
-                    <View style= {styles.fraccion}>
-                    <TextInput
-                        style= {styles.input_box_values}
-                        underlineColorAndroid='rgba(0,0,0,0)'
-                        placeholder= '$ Hasta'
-                        placeholderTextColor= '#212121'
-                        onChangeText = {valor_final => this.setState({valor_final})}
-                    />
-                    <Text style={styles.letter_values}>Valor Hora Hasta</Text>
-                    </View>
-                    
+                          <View style= {styles.fraccion}>
+                          <TextInput
+                              style= {styles.input_box_values}
+                              underlineColorAndroid='rgba(0,0,0,0)'
+                              placeholder= '$ Hasta'
+                              placeholderTextColor= '#212121'
+                              onChangeText = {valor_final => this.setState({valor_final})}
+                          />
+                          <Text style={styles.letter_values}>Valor Hora Hasta</Text>
+                          </View>
+                          
 
-                </View>
-
-
-
-                <Text style={styles.letter_titles}>Elija un Horario </Text>
-                <View style= {styles.row}>
-                    <View style= {styles.fraccion}>
-                    <TextInput
-                       
-                        style = {styles.input_hora}
-                        underlineColorAndroid = "transparent"
-                        placeholder = "08:00 AM"
-                        placeholderTextColor = "#212121"
-                        autoCapitalize = "none"
-                    />
-                    <Text style={styles.letter_values}>Abierto Desde</Text>
-                    </View>
-
-                    <View style= {styles.fraccion}>
-                    <TextInput
-                       
-                        style = {styles.input_hora}
-                        underlineColorAndroid = "transparent"
-                        placeholder = "09:30 PM"
-                        placeholderTextColor = "#212121"
-                        autoCapitalize = "none"
-                    />
-                    <Text style={styles.letter_values}>Abierto Hasta</Text>
-                    </View>
-                    
-
-                </View>
+                      </View>
 
 
-            <Text style={styles.letter_titles}>Seleccione los Dias </Text>
+
+                      <Text style={styles.letter_titles}>Elija un Horario </Text>
+                      <View style= {styles.row}>
+                          <View style= {styles.fraccion}>
+                          <TextInput
+                            
+                              style = {styles.input_hora}
+                              underlineColorAndroid = "transparent"
+                              placeholder = "08:00 AM"
+                              placeholderTextColor = "#212121"
+                              autoCapitalize = "none"
+                          />
+                          <Text style={styles.letter_values}>Abierto Desde</Text>
+                          </View>
+
+                          <View style= {styles.fraccion}>
+                          <TextInput
+                            
+                              style = {styles.input_hora}
+                              underlineColorAndroid = "transparent"
+                              placeholder = "09:30 PM"
+                              placeholderTextColor = "#212121"
+                              autoCapitalize = "none"
+                          />
+                          <Text style={styles.letter_values}>Abierto Hasta</Text>
+                          </View>
+                          
+
+                      </View>
+
+
+
+             <Text style={styles.letter_titles}>Seleccione los Dias laborales </Text>
               <View style={styles.checkboxContainer}>
                 <CheckBox
                   value={true}
                   style={styles.checkbox}
                /><Text>Lunes</Text>
                <CheckBox
-                  value={false}
+                  value={true}
                   style={styles.checkbox}
                /><Text>Martes</Text>
                <CheckBox
                   value={true}
                   style={styles.checkbox}
                /><Text>Miercoles</Text>
+               <CheckBox
+                  value={true}
+                  style={styles.checkbox}
+               /><Text>Jueves</Text>
+               <CheckBox
+                  value={true}
+                  style={styles.checkbox}
+               /><Text>Viernes</Text>
+              </View>
+              <View style={styles.checkboxContainer}>
+              <CheckBox
+                  value={false}
+                  style={styles.checkbox}
+               /><Text>Sábado</Text>
+               <CheckBox
+                  value={false}
+                  style={styles.checkbox}
+               /><Text>Domingo</Text>
               </View>
 
-  
-                 
-            {/* <Text>{this.state.valor_inicial}</Text>
-            <Text>{this.state.valor_final}</Text>
-            <Text>{this.state.vehiculo}</Text> */}
-               <TouchableOpacity 
-                style={styles.button} 
-                onPress={() => this.props.navigation.navigate('Map_Filtro',{
-                    valor_inicial: this.state.valor_inicial,
-                    valor_final: this.state.valor_final,
-                    vehiculo: this.state.vehiculo
-                  })}>
-                <Text style={styles.textButton}  > Buscar Parqs!</Text>
-                </TouchableOpacity>
+        
+                      
+                  {/* <Text>{this.state.valor_inicial}</Text>
+                  <Text>{this.state.valor_final}</Text>
+                  <Text>{this.state.vehiculo}</Text> */}
+                    <TouchableOpacity 
+                      style={styles.button} 
+                      onPress={() => this.props.navigation.navigate('Map_Filtro',{
+                          valor_inicial: this.state.valor_inicial,
+                          valor_final: this.state.valor_final,
+                          vehiculo: this.state.vehiculo
+                        })}>
+                      <Text style={styles.textButton}  > Buscar Parqs!</Text>
+                      </TouchableOpacity>
 
-          </View>
-    
+                </View>
+        </ScrollView>
+    </SafeAreaView>
       );
     }
 };
@@ -163,6 +185,7 @@ const styles = StyleSheet.create({
       flex : 1,
       alignItems: 'center',
       justifyContent: 'center',
+      height: Dimensions.get("window").height / 1.07
     },
 
       button: {
@@ -268,6 +291,10 @@ const styles = StyleSheet.create({
       },
       checkbox: {
         alignSelf: "center",
+      },
+      container_view: {
+        flex: 1,
+        
       },
 
     });

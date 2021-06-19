@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, Dimensions, Image, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert, Dimensions, Image, Button,SafeAreaView, ScrollView, StatusBar, CheckBox } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Icon } from 'react-native-elements';
 import MapView, {Marker} from 'react-native-maps';
@@ -145,22 +145,22 @@ const Registrar_Parq = () => {
 }).then((respuesta)=> respuesta.json())
 .then((respuestaJson) => {
   if(respuestaJson == "Vacios"){
-        Alert.alert("Debes completar todos los campos");
+        Alert.alert("Atención","Debes completar todos los campos para registrar el parqueadero");
 
   }else if(respuestaJson == "Fuera_Perimetro"){
 
-    alert("El parqueadero no puede ser registrado porque se encuentra fuera del perímetro delimitado por el administrador del sistema");
+    Alert.alert("Ten Presente lo siguiente:","El parqueadero no puede ser registrado porque se encuentra fuera del perímetro delimitado por el administrador del sistema");
 
   }else  if(respuestaJson == "Registrado"){
-        Alert.alert("Parq Registrado con Exito!");
+        Alert.alert("Excelente","Parq Registrado con Exito!");
         
         
     }else  if(respuestaJson == "ya_existe_registro"){
-      Alert.alert("Este Parqueadero ya se encuentra Registrado");
+      Alert.alert("Ten Presente","Ya existe un parqueadero registrado con la misma matrícula");
       
   }    
     else{
-        Alert.alert("No pudo completarse!");
+      Alert.alert("Lastimosamente","Esta accion No pudo completarse!");
     }
   
   
@@ -173,181 +173,217 @@ const Registrar_Parq = () => {
  
 
       return(
-        <View style= {styles.container}>
-            <View style= {styles.div_tittle}>
-              
-            <Text style={styles.letter}>Registrar Parquedero! <Icon name='plus'  type='evilicon'  color='#ffd600' /> {"\n"}  ____________________________________</Text>
-            </View>
-
-            <View style= {styles.div_inputs}>
-
-            <Text>*** Numero de Matrícula</Text>
-            <TextInput
-                  style= {styles.input_box}
-                  underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder= 'Matricula'
-                  placeholderTextColor= '#212121'
-                  onChangeText = {matricula => setDatos_Parq({... Datos_Parq, matricula : matricula})}
-                />
-                
-
-                <Text>*** Nit del Parq!</Text>
-                <TextInput
-                  style= {styles.input_box}
-                  underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder= 'Nit'
-                  placeholderTextColor= '#212121'
-                  onChangeText = {nit => setDatos_Parq({... Datos_Parq,nit : nit})}
-                />
-
-
-              <Text>*** Nombre del establecimiento</Text>
-                <TextInput
-                  style= {styles.input_box}
-                  underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder= 'Nombre Comercial'
-                  placeholderTextColor= '#212121'
-                  onChangeText = {nombres => setDatos_Parq({... Datos_Parq, nombres : nombres})}
-                />
-
-
-                <Text>*** Dirección del parq!</Text>
-                <TextInput
-                  style= {styles.input_box}
-                  underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder= 'Dirección'
-                  placeholderTextColor= '#212121'
-                  onChangeText = {direccion => setDatos_Parq({... Datos_Parq, direccion : direccion})}
-                />
-
-                <TextInput
-                  style= {styles.input_box}
-                  underlineColorAndroid='rgba(0,0,0,0)'
-                  placeholder= 'Servicios Adicionales Ofrecidos'
-                  placeholderTextColor= '#212121'
-                  onChangeText = {servicios => setDatos_Parq({... Datos_Parq, servicios : servicios})}
-                />
-                
-                <View style={styles.row}>
-                  <View style={[styles.fraccion]}>
-                    <Image source={require("../components/imagenes/Carro.png")} style={{ width: '50%', height: '50%', resizeMode: 'contain' }} />
-                  </View>
-
-                  <View style={[styles.fraccion]}>
-                    <Image source={require("../components/imagenes/Moto.png")} style={{ width: '50%', height: '50%', resizeMode: 'contain' }} />
-                  </View>
-               </View>
-
-          
-              <View style={styles.row}>
-                <View style={[styles.fraccion,  styles.valor_box]}>
-                  <TextInput
-                    style= {styles.input_box_value}
-                    underlineColorAndroid='rgba(0,0,0,0)'
-                    placeholder= 'Valor_Hora'
-                    placeholderTextColor= '#212121'
-                    keyboardType = 'numeric'
-                    onChangeText = {valor_carro => setDatos_Parq({... Datos_Parq,valor_carro : valor_carro})}
-                  />
+        <SafeAreaView style={styles.container_view}>
+          <ScrollView>
+            <View style= {styles.container}>
+                <View style= {styles.div_tittle}>
+                  
+                <Text style={styles.letter}>Registrar Parquedero! <Icon name='plus'  type='evilicon'  color='#ffd600' /> {"\n"}  ____________________________________</Text>
                 </View>
-                <View style={[styles.fraccion,  styles.valor_box]}>
-                  <TextInput
-                      style= {styles.input_box_value}
+
+                <View style= {styles.div_inputs}>
+
+                <Text>*** Numero de Matrícula</Text>
+                <TextInput
+                      style= {styles.input_box}
                       underlineColorAndroid='rgba(0,0,0,0)'
-                      placeholder= 'Valor_Hora'
+                      placeholder= 'Matricula'
                       placeholderTextColor= '#212121'
-                      keyboardType = 'numeric'
-                      onChangeText = {valor_moto => setDatos_Parq({... Datos_Parq,valor_moto : valor_moto})}
-                  />
+                      onChangeText = {matricula => setDatos_Parq({... Datos_Parq, matricula : matricula})}
+                    />
+                    
+
+                    <Text>*** Nit del Parq!</Text>
+                    <TextInput
+                      style= {styles.input_box}
+                      underlineColorAndroid='rgba(0,0,0,0)'
+                      placeholder= 'Nit'
+                      placeholderTextColor= '#212121'
+                      onChangeText = {nit => setDatos_Parq({... Datos_Parq,nit : nit})}
+                    />
+
+
+                  <Text>*** Nombre del establecimiento</Text>
+                    <TextInput
+                      style= {styles.input_box}
+                      underlineColorAndroid='rgba(0,0,0,0)'
+                      placeholder= 'Nombre Comercial'
+                      placeholderTextColor= '#212121'
+                      onChangeText = {nombres => setDatos_Parq({... Datos_Parq, nombres : nombres})}
+                    />
+
+
+                    <Text>*** Dirección del parq!</Text>
+                    <TextInput
+                      style= {styles.input_box}
+                      underlineColorAndroid='rgba(0,0,0,0)'
+                      placeholder= 'Dirección'
+                      placeholderTextColor= '#212121'
+                      onChangeText = {direccion => setDatos_Parq({... Datos_Parq, direccion : direccion})}
+                    />
+
+                    <Text>*** Servicios adicionales Ofrecidos</Text>
+                    <TextInput
+                      style= {styles.input_box}
+                      underlineColorAndroid='rgba(0,0,0,0)'
+                      placeholder= 'Servicios Adicionales Ofrecidos'
+                      placeholderTextColor= '#212121'
+                      onChangeText = {servicios => setDatos_Parq({... Datos_Parq, servicios : servicios})}
+                    />
+                    
+                    <View style={styles.row}>
+                      <View style={[styles.fraccion]}>
+                        <Image source={require("../components/imagenes/Carro.png")} style={{ width: '50%', height: '50%', resizeMode: 'contain' }} />
+                        <TextInput
+                        style= {styles.input_box_value}
+                        underlineColorAndroid='rgba(0,0,0,0)'
+                        placeholder= 'Valor_Hora'
+                        placeholderTextColor= '#212121'
+                        keyboardType = 'numeric'
+                        onChangeText = {valor_carro => setDatos_Parq({... Datos_Parq,valor_carro : valor_carro})}
+                      />
+                      <Text>Valor Hora Carro</Text>
+                      </View>
+
+                      <View style={[styles.fraccion]}>
+                        <Image source={require("../components/imagenes/Moto.png")} style={{ width: '50%', height: '50%', resizeMode: 'contain' }} />
+                        <TextInput
+                          style= {styles.input_box_value}
+                          underlineColorAndroid='rgba(0,0,0,0)'
+                          placeholder= 'Valor_Hora'
+                          placeholderTextColor= '#212121'
+                          keyboardType = 'numeric'
+                          onChangeText = {valor_moto => setDatos_Parq({... Datos_Parq,valor_moto : valor_moto})}
+                      />
+                      <Text>Valor Hora Moto</Text>
+                      </View>
+                  </View>
+
+              
+                  
+
+                  <View style={styles.row}>
+                      <View style={[styles.fraccion]}>
+                      <Text style={styles.spinner_text}>  {hora_apertura.getHours()} : {hora_apertura.getMinutes()}   </Text>
+                            <Button onPress={showTimepicker_Apertura} title="Hora Apertura" />
+                    
+                            {show_reloj_apertura && (
+                              <DateTimePicker
+                                value={hora_apertura}
+                                mode='time'
+                                is24Hour={false}
+                                display="default"
+                                minuteInterval={10}
+                                onChange={reloj_apertura}
+                              />
+                            )}
+
+                      </View>
+
+                      <View style={[styles.fraccion]}>
+                      <Text style={styles.spinner_text}> {hora_cierre.getHours()} : {hora_cierre.getMinutes()}   </Text>
+                      <Button onPress={showTimepicker_Cierre} title="Hora Cierre" />
+                              {show_reloj_cierre && (
+                                <DateTimePicker
+                                  value={hora_cierre}
+                                  mode='time'
+                                  is24Hour={false}
+                                  display="default"
+                                  minuteInterval={10}
+                                  onChange={reloj_cierre}
+                                />
+                              )}
+                              
+                      </View>
+                      
+                  </View>
+                      
+                  
+
                 </View>
+
+                <View style= {styles.div_map}>
+                    
+                      {
+                      ubicacion ? 
+                        <MapView
+                            style={styles.map}
+                            showsUserLocation
+                            onPress= {e => onMapPress(e)}
+                            initialRegion={{
+                              latitude: location.coords.latitude,
+                              longitude: location.coords.longitude,
+                              latitudeDelta: LATITUDE_DELTA,
+                              longitudeDelta: LONGITUDE_DELTA,
+                                              
+                            }}
+                          >
+                            <Marker
+                                coordinate= {{
+                                  latitude: Marker_Position.latitude,
+                                  longitude: Marker_Position.longitude
+                                }}
+                                image = {require('../components/imagenes/Marker_Map.png')}
+                                
+                                draggable
+                            >
+                              </Marker>
+
+                    </MapView>
+                      :
+                      <Text style={styles.spinner_text}><Icon name='spinner' size={30} type='evilicon'  color='#b6ad05'/>Obteniendo Ubicación Real</Text>
+                    }
+                </View>
+
+               <Text style={styles.letter_titles}>Seleccione los Dias laborales </Text>
+              <View style={styles.checkboxContainer}>
+                <CheckBox
+                  value={true}
+                  style={styles.checkbox}
+               /><Text>Lunes</Text>
+               <CheckBox
+                  value={true}
+                  style={styles.checkbox}
+               /><Text>Martes</Text>
+               <CheckBox
+                  value={true}
+                  style={styles.checkbox}
+               /><Text>Miercoles</Text>
+               <CheckBox
+                  value={true}
+                  style={styles.checkbox}
+               /><Text>Jueves</Text>
+               <CheckBox
+                  value={true}
+                  style={styles.checkbox}
+               /><Text>Viernes</Text>
+              </View>
+              <View style={styles.checkboxContainer}>
+              <CheckBox
+                  value={false}
+                  style={styles.checkbox}
+               /><Text>Sábado</Text>
+               <CheckBox
+                  value={false}
+                  style={styles.checkbox}
+               /><Text>Domingo</Text>
+              </View>
+              
+
+                
+
+                <View style= {styles.div_button}>
+                  
+                    <TouchableOpacity style={styles.button} onPress={() => Registrar_Parq()} >
+                      <Text style={styles.textButton}  > Registrar Parq! </Text>
+                    </TouchableOpacity>
+                </View>
+                  
               </View>
 
-              <View style={styles.row}>
-                  <View style={[styles.fraccion]}>
-                  <Text style={styles.spinner_text}>  {hora_apertura.getHours()} : {hora_apertura.getMinutes()}   </Text>
-                        <Button onPress={showTimepicker_Apertura} title="Hora Apertura" />
-                
-                        {show_reloj_apertura && (
-                          <DateTimePicker
-                            value={hora_apertura}
-                            mode='time'
-                            is24Hour={false}
-                            display="default"
-                            minuteInterval={10}
-                            onChange={reloj_apertura}
-                          />
-                        )}
-
-                  </View>
-
-                  <View style={[styles.fraccion]}>
-                  <Text style={styles.spinner_text}> {hora_cierre.getHours()} : {hora_cierre.getMinutes()}   </Text>
-                  <Button onPress={showTimepicker_Cierre} title="Hora Cierre" />
-                          {show_reloj_cierre && (
-                            <DateTimePicker
-                              value={hora_cierre}
-                              mode='time'
-                              is24Hour={false}
-                              display="default"
-                              minuteInterval={10}
-                              onChange={reloj_cierre}
-                            />
-                          )}
-                          
-                  </View>
-                  
-               </View>
-                  
-              
-
-            </View>
-
-            <View style= {styles.div_map}>
-                {/* <Text style={styles.letter}>Fija el Parqueadero en el Mapa</Text> */}
-                  {
-                  ubicacion ? 
-                    <MapView
-                        style={styles.map}
-                        showsUserLocation
-                        onPress= {e => onMapPress(e)}
-                        initialRegion={{
-                          latitude: location.coords.latitude,
-                          longitude: location.coords.longitude,
-                          latitudeDelta: LATITUDE_DELTA,
-                          longitudeDelta: LONGITUDE_DELTA,
-                                          
-                        }}
-                      >
-                        <Marker
-                            coordinate= {{
-                              latitude: Marker_Position.latitude,
-                              longitude: Marker_Position.longitude
-                            }}
-                            image = {require('../components/imagenes/Marker_Map.png')}
-                            
-                            draggable
-                        >
-                          </Marker>
-
-                </MapView>
-                  :
-                  <Text style={styles.spinner_text}><Icon name='spinner' size={30} type='evilicon'  color='#b6ad05'/>Obteniendo Ubicación Real</Text>
-                }
-            </View>
-
-
-
-            
-
-            <View style= {styles.div_button}>
-              
-                <TouchableOpacity style={styles.button} onPress={() => Registrar_Parq()} >
-                  <Text style={styles.textButton}  > Registrar Parq! </Text>
-                </TouchableOpacity>
-            </View>
-              
-          </View>
-    
+            </ScrollView>
+    </SafeAreaView>
+        
       );
     
 }
@@ -421,9 +457,10 @@ const styles = StyleSheet.create({
         
       },
       div_map: {
-        flex: 2,
+        flex: 1,
         marginVertical: 10,
-        width: '100%'
+        width: '100%',
+        minHeight: Dimensions.get("window").height / 3,
       },
       div_button: {
         flex: 1,
@@ -451,10 +488,29 @@ const styles = StyleSheet.create({
       },
       fraccion: {
         flex: 2,
-        height: 100,
+        height: 150,
         alignItems: "center",
     
         
+      },
+      container_view: {
+        flex: 1,
+        paddingTop: StatusBar.currentHeight,
+      },
+      letter_titles: {
+        fontSize: 18,
+        fontWeight: '200',
+        color:'white',
+        textAlign: 'center',
+        marginVertical: 10,
+      },
+      
+      checkboxContainer: {
+        flexDirection: "row",
+        marginBottom: 20,
+      },
+      checkbox: {
+        alignSelf: "center",
       },
     });
   

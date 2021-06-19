@@ -37,7 +37,7 @@ export default class Login_SuperAdmin extends Component <{}>{
         Alert.alert("Debes completar todos los campos");
       }else 
         if(respuestaJson == "Correcto"){
-          Alert.alert("Bienvenido Admin");
+          Alert.alert("Bienvenido","Administrador de Parq!");
           this.props.navigation.navigate('Menu_Admin');
       }
       else{

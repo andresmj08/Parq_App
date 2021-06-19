@@ -17,6 +17,12 @@ export default class Update_Admin_Info extends Component <{}> {
         this.state = {
             id_admin: params.id_admin,
             Datos_admin: [],
+            nombres: null,
+            apellidos: null,
+            documento: null,
+            telefono: null,
+            correo: null,
+            
             
             }
             this.getInfoAdmin();
@@ -27,6 +33,7 @@ export default class Update_Admin_Info extends Component <{}> {
         
  componentDidMount(){
         this.getInfoAdmin();
+
     }
 
 
@@ -48,7 +55,11 @@ export default class Update_Admin_Info extends Component <{}> {
     .then((respuestaJson) => {
         
         this.setState({Datos_admin:respuestaJson});
-        
+        this.setState({nombres: this.state.Datos_admin.nombres});
+        this.setState({apellidos: this.state.Datos_admin.apellidos});
+        this.setState({documento: this.state.Datos_admin.documento});
+        this.setState({telefono: this.state.Datos_admin.telefono});
+        this.setState({correo: this.state.Datos_admin.email});
         
     }).catch((error) => {
         alert(error);
@@ -59,6 +70,68 @@ export default class Update_Admin_Info extends Component <{}> {
 
 Actualizar_Info = () => {
     Alert.alert('Registro Apto para Guardar');
+}
+
+
+actualizar_nombres = (text) => {
+    this.setState({nombres:text})
+};
+
+actualizar_apellidos = (text) => {
+    this.setState({apellidos:text})
+};
+
+actualizar_documento = (text) => {
+    this.setState({documento:text})
+};
+
+actualizar_telefono = (text) => {
+    this.setState({telefono:text})
+};
+
+actualizar_correo = (text) => {
+    this.setState({correo:text})
+};
+
+
+
+
+update_info = () => {
+    const { id_admin }= this.state;
+    const { nombres }= this.state;
+    const { apellidos }= this.state;
+    const { documento }= this.state;
+    const { telefono }= this.state;
+    const { correo }= this.state;
+
+    fetch('http://192.168.0.8/Parq_App_Conection/actualizar_info_admin.php', {
+
+    method: 'POST',
+    headers:{
+        'Accept':'application/json',
+        'Content-Type':'application/json'
+    },
+    body: JSON.stringify({
+        id_admin: id_admin,
+        nombres: nombres,
+        apellidos: apellidos,
+        documento: documento,
+        telefono: telefono,
+        email: correo
+    })
+}).then((respuesta)=> respuesta.json())
+.then((respuestaJson) => {
+    if(respuestaJson == "Actualizado"){
+        Alert.alert("Muy bien!", "Actualizaste datos");
+    }else{
+        Alert.alert("Paila");
+    }
+    
+    
+}).catch((error) => {
+    alert(error);
+});
+
 }
 
 
@@ -85,17 +158,26 @@ render() {
                         <Text style={styles.letter_labels}>Nombres:       </Text>
                         <TextInput
                             style = {styles.InputsText}
-                            value = {this.state.Datos_admin.nombres}
-                            
+                            value = {this.state.nombres}
+                            onChangeText = {(nombres) => this.actualizar_nombres(nombres)}
                         />
                     </View>
+
+
+                    <Text>{this.state.nombres}</Text>
+                    <Text>{this.state.apellidos}</Text>
+                    <Text>{this.state.documento}</Text>
+                    <Text>{this.state.telefono}</Text>
+                    <Text>{this.state.correo}</Text>
+                    
 
                     <View style={{flexDirection: 'row'}}>
 
                         <Text style={styles.letter_labels}>Apellidos:      </Text>
                         <TextInput
                             style = {styles.InputsText}
-                            value = {this.state.Datos_admin.apellidos}
+                            value = {this.state.apellidos}
+                            onChangeText = {(apellidos) => this.actualizar_apellidos(apellidos)}
                             
                         />
                     </View> 
@@ -105,7 +187,8 @@ render() {
                         <Text style={styles.letter_labels}>Documento:   </Text>
                         <TextInput
                             style = {styles.InputsText}
-                            value = {this.state.Datos_admin.documento}
+                            value = {this.state.documento}
+                            onChangeText = {(documento) => this.actualizar_documento(documento)}
                             
                         />
                     </View>  
@@ -115,7 +198,8 @@ render() {
                         <Text style={styles.letter_labels}>Teléfono:        </Text>
                         <TextInput
                             style = {styles.InputsText}
-                            value = {this.state.Datos_admin.telefono}
+                            value = {this.state.telefono}
+                            onChangeText = {(telefono) => this.actualizar_telefono(telefono)}
                             
                         />
                     </View> 
@@ -125,20 +209,13 @@ render() {
                         <Text style={styles.letter_labels}>Correo:           </Text>
                         <TextInput
                             style = {styles.InputsText}
-                            value = {this.state.Datos_admin.email}
+                            value = {this.state.correo}
+                            onChangeText = {(email) => this.actualizar_correo(email)}
                             
                         />
                     </View>  
                     
-                     <View style={{flexDirection: 'row'}}>
-
-                        <Text style={styles.letter_labels}>Contraseña:   </Text>
-                        <TextInput
-                            style = {styles.InputsText}
-                            value = {this.state.Datos_admin.password}
-                            
-                        />
-                    </View>            
+         
                     
                     
 
@@ -149,7 +226,7 @@ render() {
                
             <View style= {styles.div_button}>
               
-                <TouchableOpacity style={styles.button} onPress={() => this.Actualizar_Info()} >
+                <TouchableOpacity style={styles.button} onPress={() => this.update_info()} >
                   <Text style={styles.textButton}  > Actualizar Info Personal! </Text>
                 </TouchableOpacity>
             </View>

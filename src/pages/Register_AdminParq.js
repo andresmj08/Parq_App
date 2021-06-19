@@ -47,12 +47,12 @@ export default class Register_AdminParq extends Component <{}>{
     }).then((respuesta)=> respuesta.json())
     .then((respuestaJson) => {
       if(respuestaJson == "Vacios"){
-        Alert.alert("Debes completar todos los campos");
+        Alert.alert("Atención","Debes completar todos los campos");
       }else if(respuestaJson == "Registrado"){
-            Alert.alert("Usuario Registrado con Éxito! Por favor iniciar Sesión");
+            Alert.alert("Usuario Registrado con Éxito!", "Por favor iniciar Sesión en Parq");
             this.props.navigation.navigate('Login');
         }else{
-            Alert.alert("No pudo completarse!");
+            Alert.alert("Lastimosamente","Esta accion No pudo completarse!");
         }
       
       
@@ -90,7 +90,7 @@ export default class Register_AdminParq extends Component <{}>{
 
 
     Incompletos = () =>{
-      Alert.alert('Faltan Validaciones por Completar');
+      Alert.alert('Revisa los datos','Faltan Validaciones por Completar');
     }
 
     render(){
@@ -139,7 +139,7 @@ export default class Register_AdminParq extends Component <{}>{
                   onChangeText = {(text) => this.validate(text)}
                 />
                 {this.state.validacion_correo ? <Text  style={{color:'#82E0AA'}}>Formato Correo Valido</Text> : <Text style={{color:'#EC7063'}}> Correo Invalido</Text>}
-                <Text>{this.state.correo}</Text>
+                
 
                  <TextInput
                   style= {styles.input_box}
