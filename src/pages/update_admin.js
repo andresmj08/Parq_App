@@ -104,7 +104,7 @@ update_info = () => {
     const { telefono }= this.state;
     const { correo }= this.state;
 
-    fetch('http://192.168.0.8/Parq_App_Conection/actualizar_info_admin.php', {
+    fetch('http://34.217.178.10/Conexion_Parq_app/actualizar_info_admin.php', {
 
     method: 'POST',
     headers:{
