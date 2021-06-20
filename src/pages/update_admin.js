@@ -1,5 +1,5 @@
-import React, {Component, useState} from 'react';
-import { StyleSheet, Text, TextInput, View, TouchableOpacity, Switch, Alert }  from 'react-native';
+import React, {Component} from 'react';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Alert, SafeAreaView, ScrollView, StatusBar, Dimensions}  from 'react-native';
 import { Icon } from 'react-native-elements';
 
 
@@ -22,6 +22,9 @@ export default class Update_Admin_Info extends Component <{}> {
             documento: null,
             telefono: null,
             correo: null,
+            nuevo_pass: null,
+            actualizo_pass: false,
+            digitos_pass: false
             
             
             }
@@ -68,10 +71,6 @@ export default class Update_Admin_Info extends Component <{}> {
 }
 
 
-Actualizar_Info = () => {
-    Alert.alert('Registro Apto para Guardar');
-}
-
 
 actualizar_nombres = (text) => {
     this.setState({nombres:text})
@@ -94,6 +93,23 @@ actualizar_correo = (text) => {
 };
 
 
+validacion_pass = (text) => {
+
+    if(text.length != 0){
+        this.setState({actualizo_pass:true})
+        if(text.length < 5 ){
+            this.setState({digitos_pass:false});
+        }else{
+            this.setState({digitos_pass:true});
+            this.setState({nuevo_pass:text});
+
+        }
+    }else{
+        this.setState({actualizo_pass:false})
+    }
+};
+
+
 
 
 update_info = () => {
@@ -103,6 +119,8 @@ update_info = () => {
     const { documento }= this.state;
     const { telefono }= this.state;
     const { correo }= this.state;
+    const { nuevo_pass }= this.state;
+    const { actualizo_pass } = this.state;
 
     fetch('http://34.217.178.10/Conexion_Parq_app/actualizar_info_admin.php', {
 
@@ -117,13 +135,21 @@ update_info = () => {
         apellidos: apellidos,
         documento: documento,
         telefono: telefono,
-        email: correo
+        email: correo,
+        pass: nuevo_pass
     })
 }).then((respuesta)=> respuesta.json())
 .then((respuestaJson) => {
     if(respuestaJson == "Actualizado"){
-        Alert.alert("Muy bien!", "Actualizaste datos");
-        this.props.navigation.navigate('Menu_Admin',{id_admin});
+
+        if(actualizo_pass){
+            Alert.alert("Muy bien!", "Actualizaste datos y Contraseña");
+            this.props.navigation.navigate('Menu_Admin',{id_admin});
+        }else{
+            Alert.alert("Muy bien!", "Actualizaste datos");
+            this.props.navigation.navigate('Menu_Admin',{id_admin});
+        }
+
     }else{
         Alert.alert("Paila");
     }
@@ -145,90 +171,120 @@ render() {
     
         
     return(
-    <View style={styles.container}>
+        <SafeAreaView style={styles.container_view}>
+            <ScrollView>
+                <View style={styles.container}>
 
-            <View style= {styles.div_tittle}>
-                <Text style={styles.letter}>Modificar Informacion de Admin! <Icon name='pencil' size={30}  type='evilicon'  color='#ffd600' /> {"\n"}  _________________________________________</Text>
-            </View>
+                        <View style= {styles.div_tittle}>
+                            <Text style={styles.letter}>Modificar Informacion de Admin! <Icon name='pencil' size={30}  type='evilicon'  color='#ffd600' /> {"\n"}  _________________________________________</Text>
+                        </View>
 
 
-            
-            <View style={styles.div_inputs}>
-                    <View style={{flexDirection: 'row'}}>
+                        
+                        <View style={styles.div_inputs}>
+                                <View style={{flexDirection: 'row'}}>
 
-                        <Text style={styles.letter_labels}>Nombres:       </Text>
-                        <TextInput
-                            style = {styles.InputsText}
-                            value = {this.state.nombres}
-                            onChangeText = {(nombres) => this.actualizar_nombres(nombres)}
-                        />
-                    </View>
+                                    <Text style={styles.letter_labels}>Nombres:       </Text>
+                                    <TextInput
+                                        style = {styles.InputsText}
+                                        value = {this.state.nombres}
+                                        onChangeText = {(nombres) => this.actualizar_nombres(nombres)}
+                                    />
+                                </View>
 
+                                
+
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <Text style={styles.letter_labels}>Apellidos:      </Text>
+                                    <TextInput
+                                        style = {styles.InputsText}
+                                        value = {this.state.apellidos}
+                                        onChangeText = {(apellidos) => this.actualizar_apellidos(apellidos)}
+                                        
+                                    />
+                                </View> 
+
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <Text style={styles.letter_labels}>Documento:   </Text>
+                                    <TextInput
+                                        style = {styles.InputsText}
+                                        value = {this.state.documento}
+                                        onChangeText = {(documento) => this.actualizar_documento(documento)}
+                                        
+                                    />
+                                </View>  
+
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <Text style={styles.letter_labels}>Teléfono:        </Text>
+                                    <TextInput
+                                        style = {styles.InputsText}
+                                        value = {this.state.telefono}
+                                        keyboardType = 'numeric'
+                                        onChangeText = {(telefono) => this.actualizar_telefono(telefono)}
+                                        
+                                    />
+                                </View> 
+                                
+                                <View style={{flexDirection: 'row'}}>
+
+                                    <Text style={styles.letter_labels}>Correo:           </Text>
+                                    <TextInput
+                                        style = {styles.InputsText}
+                                        value = {this.state.correo}
+                                        onChangeText = {(email) => this.actualizar_correo(email)}
+                                        
+                                    />
+                                </View>
+
+
+
+                                <Text style={{textAlign:'center'}}>¿Quieres cambiar la contraseña?</Text>
+                                <View style={{flexDirection: 'row'}}>
+
+                                <Text style={styles.letter_labels}>Contraseña:    </Text>
+                                <TextInput
+                                    style = {styles.InputsText}
+                                    placeholder = {"Ingresa aquí la nueva contraseña"}
+                                    onChangeText = {(text) => this.validacion_pass(text)}
+                                    
+                                />
+                                
+                                </View>  
+                                {this.state.actualizo_pass ?
+                                    [
+                                        this.state.digitos_pass ?
+                                        <Text key= '0' style={{color:'#82E0AA',textAlign:'center'}}>Contraseña Válida</Text> 
+                                        :
+                                        <Text key= '1' style={{color:'#EC7063',textAlign:'center'}}> La contraseña debe contener mas de 5 caracteres</Text>
+                                    ]
+
+                                    :
+                                    <Text></Text>
+                                }
+                                        
                     
-
-                    <View style={{flexDirection: 'row'}}>
-
-                        <Text style={styles.letter_labels}>Apellidos:      </Text>
-                        <TextInput
-                            style = {styles.InputsText}
-                            value = {this.state.apellidos}
-                            onChangeText = {(apellidos) => this.actualizar_apellidos(apellidos)}
-                            
-                        />
-                    </View> 
-
-                    <View style={{flexDirection: 'row'}}>
-
-                        <Text style={styles.letter_labels}>Documento:   </Text>
-                        <TextInput
-                            style = {styles.InputsText}
-                            value = {this.state.documento}
-                            onChangeText = {(documento) => this.actualizar_documento(documento)}
-                            
-                        />
-                    </View>  
-
-                    <View style={{flexDirection: 'row'}}>
-
-                        <Text style={styles.letter_labels}>Teléfono:        </Text>
-                        <TextInput
-                            style = {styles.InputsText}
-                            value = {this.state.telefono}
-                            onChangeText = {(telefono) => this.actualizar_telefono(telefono)}
-                            
-                        />
-                    </View> 
-                    
-                    <View style={{flexDirection: 'row'}}>
-
-                        <Text style={styles.letter_labels}>Correo:           </Text>
-                        <TextInput
-                            style = {styles.InputsText}
-                            value = {this.state.correo}
-                            onChangeText = {(email) => this.actualizar_correo(email)}
-                            
-                        />
-                    </View>  
-                    
-         
-                    
-                    
+                                
+                                
 
 
 
-            </View>
+                        </View>
 
-               
-            <View style= {styles.div_button}>
-              
-                <TouchableOpacity style={styles.button} onPress={() => this.update_info()} >
-                  <Text style={styles.textButton}  > Actualizar Info Personal! </Text>
-                </TouchableOpacity>
-            </View>
+                        
+                        <View style= {styles.div_button}>
+                        
+                            <TouchableOpacity style={styles.button} onPress={() => this.update_info()} >
+                            <Text style={styles.textButton}  > Actualizar Info Personal! </Text>
+                            </TouchableOpacity>
+                        </View>
 
 
-      </View>
-
+                </View>
+                </ScrollView>
+    </SafeAreaView>
     );
   }
 }
@@ -240,7 +296,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         flexDirection: "column",
-        height: '100%'
+        minHeight: Dimensions.get("window").height / 1.07
         
       },div_tittle: {
         flex: 1
@@ -260,7 +316,7 @@ const styles = StyleSheet.create({
       },
       InputsText:{
           borderWidth:2,
-          width: 200,
+          width: 250,
           textAlign: 'center',
           borderBottomWidth:5,
           borderBottomColor: '#ffd600',
@@ -307,6 +363,10 @@ const styles = StyleSheet.create({
       div_button: {
         flex: 2,
         
+      },
+      container_view: {
+        flex: 1,
+     
       }
   });
   

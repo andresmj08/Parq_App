@@ -126,12 +126,15 @@ class PolygonCreator extends React.Component {
 
                 [ 
                     !this.state.polygons.length ?
+                    <View key= '0'>
                       <Text style= {styles.titulo_filtros}>Definir Perimetro Urbano {"\n"}
                       <Text style = {styles.letra_filtros}>Para iniciar: <Text style = {styles.bold}>Click sobre el mapa </Text></Text></Text> 
+                     </View>
                   :
-                      <Text style= {styles.titulo_filtros}>Definir Perimetro Urbano {"\n"}                 
-                      <Text style = {styles.letra_filtros}> Perfecto!  <Text style = {styles.perimetro_definido}>El perimetro ha sido definido!</Text></Text></Text> 
-                      
+                      <View key= '2'>
+                        <Text style= {styles.titulo_filtros}>Definir Perimetro Urbano {"\n"}                 
+                        <Text style = {styles.letra_filtros}> Perfecto!  <Text style = {styles.perimetro_definido}>El perimetro ha sido definido!</Text></Text></Text> 
+                      </View>
                 ]
                 :
                 <Text style= {styles.titulo_filtros}>Definir Perimetro Urbano {"\n"}
@@ -189,17 +192,21 @@ class PolygonCreator extends React.Component {
 
                 [
                   this.state.polygons.length ?
-
-                  <TouchableOpacity style={styles.boton_regresar_menu} onPress={() => this.props.navigation.navigate('Menu_SuperAdmin')}> 
-                      <Text style= {styles.text_btn_regresar}>Regresar al Menu Principal</Text>
-                  </TouchableOpacity>
-
+                  <View key= '0'>
+                    <TouchableOpacity style={styles.boton_regresar_menu} onPress={() => this.props.navigation.navigate('Menu_SuperAdmin')}> 
+                        <Text style= {styles.text_btn_regresar}>Regresar al Menu Principal</Text>
+                    </TouchableOpacity>
+                  </View>
                   
                   :
+                  <View key= '1'>
                     <Text></Text>
+                  </View>
                 ]
                 :
-                <Text></Text>
+                
+                  <Text></Text>
+                
               
               }
 

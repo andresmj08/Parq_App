@@ -37,7 +37,7 @@ export default class Login_SuperAdmin extends Component <{}>{
         Alert.alert("Debes completar todos los campos");
       }else 
         if(respuestaJson == "Correcto"){
-          Alert.alert("Bienvenido","Administrador de Parq!");
+          Alert.alert("Bienvenido","SuperAdmin");
           this.props.navigation.navigate('Menu_Admin');
       }
       else{
@@ -55,8 +55,8 @@ export default class Login_SuperAdmin extends Component <{}>{
         return(
           <View style= {styles.container}>
               <Logo/>
-              <Text style={styles.perfil}> El duro de los Parqs  </Text>
-              <Text style={styles.perfil}> El SuperAdmin </Text>
+              <Text style={styles.perfil}> Inicio de sesón{"\n"}Super Admin Parq</Text>
+              
               <TextInput 
                   style= {styles.input_box}
                   underlineColorAndroid='rgba(0,0,0,0)'
@@ -76,7 +76,7 @@ export default class Login_SuperAdmin extends Component <{}>{
 
                 {/* <TouchableOpacity style={styles.button} onPress={this.Login}> */}
                 <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Menu_SuperAdmin')}>
-                  <Text style={styles.textButton} > Pase Con Confianza </Text>
+                  <Text style={styles.textButton} >Ingresar</Text>
                 </TouchableOpacity>
                 <Text style={styles.letter}> ___________________________________________</Text>
                 

@@ -29,7 +29,7 @@ export default class Menu_SuperAdmin extends Component <{}>{
     render(){
       return(
         <View style= {styles.container}>
-              <Text style={styles.letter}>Bienvenido Super Admin David! <Icon name='user'  type='evilicon'  color='#ffd600'  /></Text>
+              <Text style={styles.letter}>Bienvenido Super Admin  <Icon name='user'  type='evilicon'  color='#ffd600'  /></Text>
               
               <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Poligono')}>
                   <Text style={styles.textButton} > <Icon name='pointer'  type='evilicon'  color='#616161' />  Definir Perimetro Urbano </Text>

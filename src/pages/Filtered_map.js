@@ -60,7 +60,7 @@ Sitios_Mapa_Filtro = () => {
     }).then((respuesta)=> respuesta.json())
     .then((rtaJson) => {
         if(rtaJson == "Vacio"){
-            alert('No se encontraron Registros');
+            Alert.alert('Prueba con otros datos','No se encontraron parqueaderos con los filtros indicados');
         }else{
             this.setState({markers:rtaJson})
         }
@@ -87,7 +87,7 @@ render() {
             ?
              <Text style= {styles.titulo_filtros}>De los siguientes filtros : {"\n"}
              <Text style = {styles.letra_filtros}>Tipo de Vehículo: <Text style = {styles.bold}>{ this.state.vehiculo_var  == 1 ? 'Carro' : 'Moto'}</Text> Valor Desde: <Text style = {styles.bold}>${this.state.valor_inicial_var}</Text> Hasta: <Text style = {styles.bold}>${this.state.valor_final_var}
-             {"\n"}Se encontraró(n) {this.state.markers.length} resultado (s)</Text> </Text></Text>
+             {"\n"}Se encontraró {this.state.markers.length} resultado (s)</Text> </Text></Text>
          :
             <Text style= {styles.titulo_sin_resultados}> No se encontraron Registros:{"\n"}
              <Text style = {styles.letra_filtros}>Por Favor cambia los valores de búsqueda</Text> </Text>
