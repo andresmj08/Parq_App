@@ -182,7 +182,7 @@ class PolygonCreator extends React.Component {
                       onPress={() => this.finish()}
                       style={[styles.bubble, styles.button]}
                     >
-                      <Text>Terminar</Text>
+                      <Text>Terminar y Enviar</Text>
                     </TouchableOpacity>
 
           )}

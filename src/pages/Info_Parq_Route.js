@@ -10,6 +10,7 @@ const Info_Parq_Route = (props) => {
   const id_parqueadero = props.Id_Parq;
   const [Datos_Parq, setDatos_Parq] = useState({});
   const [starCount, setStarCount] = useState(4);
+  const [calificaron, setCalificaron] = useState(false);
 
 
   abrir_modal = () => {
@@ -59,9 +60,34 @@ const Info_Parq_Route = (props) => {
   onStarRatingPress = (rating) =>{
 
     setStarCount(rating);
+    setCalificaron(true);
+
 
   }
   
+
+  ocultar_modal = () => {
+    setModalVisible(!modalVisible);
+    if(calificaron){
+      
+
+      fetch('http://34.217.178.10/Conexion_Parq_app/calificar_parq.php', {
+        method: 'POST',
+        headers:{
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({
+            id_parq:id_parqueadero,
+            valor:starCount
+        })
+    });
+
+    Alert.alert("Gracias!", "Calificaste el parqueadero " + Datos_Parq.nombre + " con " + starCount + " estrellas!");
+
+    }
+  }
+
   
   return (
     <View style={styles.centeredView}>
@@ -129,7 +155,7 @@ const Info_Parq_Route = (props) => {
             <Text style={styles.modalText}><Icon name='clock' size={30} type='evilicon'  color='#b6ad05'/>Con un promedio de {props.tiempo} Minutos</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
+              onPress={() => ocultar_modal()}
             >
               <Text style={styles.textStyle}> Ocultar Info</Text>
             </Pressable>

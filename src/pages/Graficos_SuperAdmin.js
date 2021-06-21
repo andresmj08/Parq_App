@@ -56,6 +56,10 @@ getInfoAdmin = () => {
       const Sin_Registro_CC = parseInt(this.state.Estadisticas.No_Registrado,10);
       const Admins = parseInt(this.state.Estadisticas.Admins,10);
       const total_parqs = Activos + Inactivos;
+      const Actividad = parseInt(this.state.Estadisticas.Actividad,10);
+      const Calificaciones = parseInt(this.state.Estadisticas.Calificaciones,10);
+
+
         return(
 
             <View style={styles.container}> 
@@ -119,6 +123,12 @@ getInfoAdmin = () => {
                   </View>
                   
                </View>
+
+               <Text style={styles.letter}>____________________________________</Text>
+               <View style={{alignItems:'center', marginTop:15}}>
+                <Text style = {styles.letra_Informativa}>Han visualizado los parqs en: <Text style = {styles.bold}>{Actividad}</Text> Veces <Icon name='chart'  type='evilicon'  color='#ffd600' />  </Text>
+                <Text style = {styles.letra_Informativa}>Han calificado: <Text style = {styles.bold}>{Calificaciones} Parqueaderos</Text> <Text style = {styles.letra_Informativa}> en el App <Icon name='star'  type='evilicon'  color='#ffd600' />  </Text></Text>
+                </View>
             </View>
          
 

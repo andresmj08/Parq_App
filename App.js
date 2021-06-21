@@ -24,6 +24,7 @@ import Parqs_for_Admin from './src/pages/Parqs_for_Admins';
 import Update_Parq_View from './src/pages/update_parq';
 import Update_Admin_Info from './src/pages/update_admin';
 import Map_Admin_Sitio from './src/pages/Map_Admin_Sitio';
+import terminos_condiciones from './src/pages/tyc_parq';
 
 
 class Home extends React.Component{
@@ -91,6 +92,9 @@ const AppNavigator = createStackNavigator({
   },
   Map_Admin_Sitio:{
     screen: Map_Admin_Sitio
+  },
+  Terminos_Condiciones:{
+    screen: terminos_condiciones
   }
 
 });

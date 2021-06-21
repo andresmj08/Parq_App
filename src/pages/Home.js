@@ -25,6 +25,8 @@ export default class HomeScreen extends Component <{}>{
                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Filtrar_Parqs')}>
                   <Text style={styles.textButton} > Filtrar Parqs! </Text>
                </TouchableOpacity> 
+
+               {/* <Text onPress={() => this.props.navigation.navigate('Terminos_Condiciones')}>Terminos y Condiciones de Uso</Text> */}
           </View>
     
       );
